@@ -1,0 +1,381 @@
+heap questions
+https://www.techiedelight.com/heap-interview-questions/
+
+Priority queue, 
+- each element has priority and they are served with highest priority
+- if 2 have same priority they are served in order they came
+
+implemented with binary heap data structure with below properties
+- structural property - complete binary tree i.e. all levels except the last one are completely filled
+- heap property - key stored in node is either "greater than or equal to" OR "less than or equal to" its children node.
+- binary heap has the smallest possible height of "log n" , n -> no of nodes
+
+https://www.techiedelight.com/introduction-priority-queues-using-binary-heaps/
+
+Heapify operations :- 
+- heapify down()
+	- complexity log n
+	- invoked if node at root, violates property of heap with its children
+	- recursively replace root with children until property of heap is fixed.
+	- used in pop operation of binary heap, remove the root, replace root with last element of last level
+	- now recursively call heapify-down until the new node goes to its intended position.
+	- replace is done with smaller child for min heap and larger child for max heap !
+
+- heapify-up()
+	- called on parrent heapifyUp(parent(i))
+	- look at the parent if violates the property of the heap, replace.
+	- used in push operation.
+	- idea is to add new element to the last level righ most.
+	- then keep doing heapify up until heap prop is fixed.
+------------------------------------------
+
+
+Default compare method returns a negative integer, zero, or a positive integer as the first argument is less than, equal to, or greater than the second.
+min heap
+a < b , return -1 ; a > b return 1; else return 0;
+
+max heap
+a < b , return 1; a > b , return -1; else return 0;
+
+so to implement max heap 
+PriorityQueue<Integer> pq = new PriorityQueue<Integer>(defaultSize, new Comparator<Integer>() {
+    public int compare(Integer lhs, Integer rhs) {
+        if (lhs < rhs) return +1;
+        if (lhs.equals(rhs)) return 0;
+        return -1;
+    }
+});
+----------------------------------------------------
+
+
+Priority Queue with implemented comparator ------------
+
+class Student { 
+    public String name; 
+    public double cgpa; 
+          
+    // A parameterized student constructor 
+    public Student(String name, double cgpa) { 
+      
+        this.name = name; 
+        this.cgpa = cgpa; 
+    } 
+      
+    public String getName() { 
+        return name; 
+    }  
+} 
+
+public class Example {
+
+	public static void main(String []args) {
+		PriorityQueue<Student> pq = new PriorityQueue<Student>(5, new StudentComparator());
+		add and operate stuff, poll , clear stuff
+		
+		Iterator<Student> itr3 = pq.iterator();
+		 while (itr3.hasNext()) 
+            		System.out.println(itr3.next()); 
+	}
+Or 
+		while (!pq.isEmpty()) { 
+                System.out.println(pq.poll().getName()); // does not work I guess
+}
+
+// descending order
+class StudentComparator implements Comparator<Student>{ 
+              
+            // Overriding compare()method of Comparator  
+            // for descending order of cgpa 
+            public int compare(Student s1, Student s2) { 
+                if (s1.cgpa < s2.cgpa) 
+                    return 1; 
+                else if (s1.cgpa > s2.cgpa) 
+                    return -1; 
+                return 0; 
+                } 
+	} 
+  
+// ascending order
+class StudentComparator implements Comparator<Student>{ 
+              
+            // Overriding compare()method of Comparator  
+            // for ascending order of cgpa 
+            public int compare(Student s1, Student s2) { 
+                if (s1.cgpa > s2.cgpa) 
+                    return 1; 
+                else if (s1.cgpa < s2.cgpa) 
+                    return -1; 
+                return 0; 
+                } 
+	} 
+---------------------------------------------------------------------------------
+Two level comparison
+static class CustomerSortingComparator implements Comparator<Student> { 
+  
+        @Override
+        public int compare(Student customer1, Student customer2) { 
+  
+            // for comparison 
+            int NameCompare = customer1.getName().compareTo(customer2.getName()); 
+            int AgeCompare = customer1.getAge().compareTo(customer2.getAge()); 
+  
+            // 2-level comparison using if-else block 
+            if (NameCompare == 0) { 
+                return ((AgeCompare == 0) ? NameCompare : AgeCompare); 
+            } else { 
+                return NameCompare; 
+            } 
+        } 
+    } 
+----------------------------------------------------------------------------------
+
+1. To check if given array represents min heap or not
+
+- if current node is leaf node, return true as every leaf node is heap node
+- if current node is internal
+		- recursively check if left child is min heap or not
+		- recursively check if right child is min heap or not (if exists)
+		- return true if both left and right are min heap, else return false.
+		
+how to check if node is leaf node or internal node ?
+- leaf node ==> if (2*i + 2 > n ) then leaf node
+- non leaf node ==> (2*i +2 <= n) then internal node.
+
+// Function to check if given array represents Min-Heap or not
+	public static boolean checkMinHeap(int[] A, int i)
+	{
+		// if i is a leaf node, return true as every leaf node is a heap
+		if (2*i + 2 > A.length) {
+			return true;
+		}
+
+		// if i is an internal node
+
+		// recursively check if left child is heap
+		boolean left = (A[i] <= A[2*i + 1]) && checkMinHeap(A, 2*i + 1);
+
+		// recursively check if right child is heap (to avoid array out
+		// of bound, we first check if right child exists or not)
+		boolean right = (2*i + 2 == A.length) ||
+						(A[i] <= A[2*i + 2] && checkMinHeap(A, 2*i + 2));
+
+		// return true if both left and right child are heap
+		return left && right;
+	}
+
+------------------------------------------
+
+2. Convert max heap to min heap in minimum time.
+- this problem is same as converting unsorted array to min heap no need to be confused.
+
+import java.util.Arrays;
+
+// Data structure for Min Heap
+class MinHeap
+{
+	// return left child of A[i]
+	private static int LEFT(int i) {
+		return (2 * i + 1);
+	}
+
+	// return right child of A[i]
+	private static int RIGHT(int i) {
+		return (2 * i + 2);
+	}
+
+	// Recursive Heapify-down algorithm
+	// the node at index i and its two direct children
+	// violates the heap property
+	private static void Heapify(int[] A, int i, int size)
+	{
+		// get left and right child of node at index i
+		int left = LEFT(i);
+		int right = RIGHT(i);
+
+		int smallest = i;
+
+		// compare A[i] with its left and right child
+		// and find smallest value
+		if (left < size && A[left] < A[i]) {
+			smallest = left;
+		}
+
+		if (right < size && A[right] < A[smallest]) {
+			smallest = right;
+		}
+
+		// swap with child having lesser value and
+		// call heapify-down on the child
+		if (smallest != i) {
+			swap(A, i, smallest);
+			Heapify(A, smallest, size);
+		}
+	}
+
+	// Utility function to swap two indices in the array
+	private static void swap(int[] A, int i, int j) {
+		int temp = A[i];
+		A[i] = A[j];
+		A[j] = temp;
+	}
+
+	// Function to convert max heap to min heap
+	public static void convert(int[] A)
+	{
+		// Build-Heap: Call heapify starting from last internal
+		// node all the way upto the root node
+		int i = (A.length - 2) / 2;
+		while (i >= 0) {
+			Heapify(A, i--, A.length);
+		}
+	}
+
+	public static void main(String[] args)
+	{
+	/*
+			   9
+
+		  4		 7
+
+		1   -2	  6	  5
+
+	*/
+		// array representing max heap
+		int A[] = { 9, 4, 7, 1, -2, 6, 5 };
+
+		// build a min heap by initializing it by given array
+		convert(A);
+
+		// print the Min Heap
+	/*
+			   -2
+
+		  1		 5
+
+		9	4	  6	  7	 */
+
+		System.out.println(Arrays.toString(A));
+	}
+}
+-------------------------------------------------------------------------------------
+
+3. kth Largest !
+
+using min heap,
+- construct a heap of size k. 
+insert first k elements then if new element is larger than root, replace with node.
+complexity :- O(nlogk)
+things to learn, inserting first k elements in queue. try and understand complexities.
+
+class KLargest
+{
+	// Function to find the K'th largest element in the
+	// array using min-heap
+	public static int FindKthLargest(List<Integer> ints, int k)
+	{
+		// create an min-heap using PriorityQueue class and insert
+		// first k elements of the array into the heap
+		PriorityQueue<Integer> pq = new PriorityQueue<>(ints.subList(0, k));
+
+		// do for remaining array elements
+		for (int i = k; i < ints.size(); i++)
+		{
+			// if current element is more than the root of the heap
+			if (ints.get(i) > pq.peek())
+			{
+				// replace root with the current element
+				pq.poll();
+				pq.add(ints.get(i));
+			}
+		}
+
+		// return the root of min-heap
+		return pq.peek();
+	}
+
+
+	public static void main(String[] args)
+	{
+		List<Integer> ints  = Arrays.asList(7, 4, 6, 3, 9, 1);
+		int k = 2;
+
+		System.out.println("K'th largest element in the array is " +
+				FindKthLargest(ints, k));
+	}
+}
+---
+using Max heap :-
+complexity -> n+ klogn
+things to learn -> max heap , adding complete list to heap in a statement. 
+
+- insert all in a heap
+- keep removing until you reach k-1, kth element will be largest kth.
+
+// Function to find the K'th largest element in the
+	// array using max-heap
+	public static int FindKthLargest(List<Integer> ints, int k)
+	{
+		// create an max-heap using PriorityQueue class from all 
+		// elements in the list
+		PriorityQueue<Integer> pq = new PriorityQueue<>((a, b) -> b - a);
+									// or pass Comparator.reverseOrder()
+		pq.addAll(ints);
+
+		// pop from max-heap exactly (k-1) times
+		while (--k > 0) {
+			pq.poll();
+		}
+
+		// return the root of max-heap
+		return pq.peek();
+	}
+-------------------------------------------------------------------------------------
+4. Sort a k-sorted array !
+- simple solution -> sort array -> nlongn
+- insertion sort -> nk , but higher values of k, k > 12 it will be useless -> complexity (nk)
+- using min heap
+	- maintain heap of size k+1, keep adding top node in sorted array and keep adding new one, at the end empty the heap
+	- complexity -> nlogk
+
+// Function to sort a K-Sorted Array
+	public static void sortKSortedArray(List<Integer> list, int k)
+	{
+		// create an empty min heap and insert first k+1 elements in the heap
+		PriorityQueue<Integer> pq = new PriorityQueue<>(list.subList(0, k+1));
+
+		int index = 0;
+
+		// do for remaining elements of the array
+		for (int i = k + 1; i < list.size(); i++)
+		{
+			// pop top element from min-heap and assign it to
+			// next available array index
+			list.set(index++, pq.poll());
+
+			// push next array element into min-heap
+			pq.add(list.get(i));
+		}
+
+		// pop all remaining elements from the min heap and assign it to
+		// next available array index
+		while(!pq.isEmpty())
+		{
+			list.set(index++, pq.poll());
+		}
+	}
+
+-------------------------------------------------------------------------------------
+5. find smallest range containing element from each list 
+https://www.techiedelight.com/find-smallest-range-least-one-element-given-lists/
+
+go through the solution once.
+-------------------------------------------------------------------------------------
+6. Merge k sorted lists with variable lengths/same lengths ( no difference same logic)
+
+can be done in (Nlogk)
+- create a min heap of size k, put minimum first of each list in heap.
+- pop minimum and push next element of that same list
+- repeat till the queue is not empty.
+
+Things to learn -> comparator, getter setter etc.
+-------------------------------------------------------------------------------------

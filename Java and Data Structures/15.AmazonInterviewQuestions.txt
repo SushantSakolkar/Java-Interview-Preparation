@@ -1,0 +1,1317 @@
+﻿2 sum
+Anusha -> stock span
+Anusha -> rotate matrix
+
+glassdoor qquestions :-
+1. Given an array with 2d points, return the N-closest to the origin
+2. Given a matrix of integers representing obstacles in an area, find the shortest path to a destination
+3. What is the runtime complexity of your solutions  
+
+1. Check if parenthesis and brackets are balanced in a string
+
+. Design an url shortener (systems design)
+---> https://www.interviewcake.com/question/java/url-shortener
+
+2. Given an array of integers representing heights of structures, calculate the amount of water that can be trapped in between them (algorithms)
+3. Design an LRU cache (data structures)
+4. Propose a solution to a K-closest points problem (O.O. principles)  
+
+Reverse a linked list and 2 other more difficult ones.  
+
+What was your best job/work exerience ?  
+Describe any difficult situation at work ?  
+
+Given an array of sorted characters and a target character, find the closest character from array.
+
+design uber  
+-----------------------------
+
+Reverse pairs within a linked list. For e.g. a -> b -> c should be reversed like b -> a -> c and a->b->c->d could be reversed like b->a->d->c.  
+
+Manager discussion, culture fit. Questions were focused around ownership for e.g. how would react if a customer impact situation with no solution happens at 2am? 
+
+Find islands of 1s and 0s.  
+
+Design a TinyUrl service. 
+
+
+
+
+Anusha :-
+list of dates and stock prices
+patient zero for a flue ( 2 hashsets )
+--------------------------------------
+Ami's friend :- 
+- given a matrix of 1s and 0s, find shortest path from first column to last column without stepping on mines and areas surrounding it
+- given arrays of string find common characters, include duplicates
+- list all dependencies of a given package, each package has dependencies, each package can have multiple dependancies
+- design a ticket selling website with a demand based price.
+-------------------------------------
+Akshay :-
+- customer review is big, couple lines ,can scroll up and down, give the word with maximum coount in each display
+- lru cache implement
+- sentence most occured alphabet in a stream ?
+- design deck of cards
+- locker 3 types - small, medium and average , check in and check out methods oop and implement
+https://www.careercup.com/question?id=5694206820483072
+-------------------------------------
+Ami ---
+Stocks
+- copy linked list with random pointer
+- copy stream of daata in disk
+- exception handling for downloading file. 
+-------------------------------------
+3 Longest Substring Without Repeating Characters
+
+the basic idea is, keep a hashmap which stores the characters in string as keys and their positions as values, 
+and keep two pointers which define the max substring. move the right pointer to scan through the string , 
+and meanwhile update the hashmap. If the character is already in the hashmap, 
+then move the left pointer to the right of the same character last found. Note that the two pointers can only move forward.
+
+public int lengthOfLongestSubstring(String s) {
+        if (s.length()==0) return 0;
+        HashMap<Character, Integer> map = new HashMap<Character, Integer>();
+        int max=0;
+        for (int i=0, j=0; i<s.length(); ++i){
+            if (map.containsKey(s.charAt(i))){
+                j = Math.max(j,map.get(s.charAt(i))+1);
+            }
+            map.put(s.charAt(i),i);
+            max = Math.max(max,i-j+1);
+        }
+        return max;
+    }
+------------------------------------
+
+8 String to Integer (atoi) 13.5% Easy
+- Look for all the corner cases and think about datastructure.
+-------------------
+20 Valid Parentheses 29.3% Easy
+- if ( , {, [ push to stack otherwise pop it wihle popping stack should not be empty; at the end stack should be empty
+------------------------
+21 Merge Two Sorted Lists 35.4% Easy
+- already sorted ; if 1 list is null return another. 
+- create head = first node = smallest of two list
+- then keep trversing and keep adding lowest node until one of the node becomes null ;
+- append remainig of the remainig list.
+- return head
+---------------------------
+102 Binary Tree Level Order Traversal 32.7% Easy
+use while loop and queue
+------------------------
+
+121 Best Time to Buy and Sell Stock 36.0% Easy
+
+- So far min price ..
+ public int maxProfit(int[] prices) {
+		 if (prices.length == 0) {
+			 return 0 ;
+		 }		
+		 int max = 0 ;
+		 int sofarMin = prices[0] ;
+	     for (int i = 0 ; i < prices.length ; ++i) {
+	    	 if (prices[i] > sofarMin) {
+	    		 max = Math.max(max, prices[i] - sofarMin) ;
+	    	 } else{
+	    		sofarMin = prices[i];  
+	    	 }
+	     }	     
+	    return  max ;
+	 }
+-----------------------------------------
+
+  public int maxProfit(int[] prices) {
+        int maxCur = 0, maxSoFar = 0;
+        for(int i = 1; i < prices.length; i++) {
+            maxCur = Math.max(0, maxCur += prices[i] - prices[i-1]);
+            maxSoFar = Math.max(maxCur, maxSoFar);
+        }
+        return maxSoFar;
+    }
+----------------------------------------
+155 Min Stack 22.0% Easy
+-> implement with 1 stack,
+min = Integer.MAX_VALUE;
+
+push() -> if x < min; push min, min=x, push x else push x
+popA() -> if(pop() == min) pop one more; min = 2nd pop
+peek() -> top
+get min -> return min
+-----------------------------------
+160 Intersection of Two Linked Lists 30.2% Easy
+-> find length of both linked list while(node !=null) node = node.next; length++; return length;
+-> keep doing next list1 or 2 till length becomes equal, then keep doing both next next until intersection is found
+-------------------------------------
+235 Lowest Common Ancestor of a Binary Search Tree 37.7% Easy
+Just walk down from the whole tree's root as long as both p and q are in the same subtree (meaning their values are both smaller or both larger than root's). 
+This walks straight from the root to the LCA, not looking at the rest of the tree, so it's pretty much as fast as it gets. 
+
+public TreeNode lowestCommonAncestor(TreeNode root, TreeNode p, TreeNode q) {
+    while ((root.val - p.val) * (root.val - q.val) > 0)
+        root = p.val < root.val ? root.left : root.right;
+    return root;
+}
+
+(in case of overflow, I'd do (root.val - (long)p.val) * (root.val - (long)q.val))
+------------------------------------------
+
+242 Valid Anagram 41.7% Easy
+public class Solution {
+    public boolean isAnagram(String s, String t) {
+        int[] alphabet = new int[26];
+        for (int i = 0; i < s.length(); i++) alphabet[s.charAt(i) - 'a']++;
+        for (int i = 0; i < t.length(); i++) alphabet[t.charAt(i) - 'a']--;
+        for (int i : alphabet) if (i != 0) return false;
+        return true;
+    }
+}
+------------------------------------------
+204 Count Primes 24.2% Easy
+public class Solution {
+    public int countPrimes(int n) {
+        boolean[] notPrime = new boolean[n];
+        int count = 0;
+        for (int i = 2; i < n; i++) {
+            if (notPrime[i] == false) {
+                count++;
+                for (int j = 2; i*j < n; j++) {
+                    notPrime[i*j] = true;
+                }
+            }
+        }
+        
+        return count;
+    }
+}
+---------------------------------------------------------------
+206 Reverse Linked List 39.4% Easy
+public ListNode reverseList(ListNode head) {
+        
+        ListNode newHead = null;
+        while(head!=null){
+            ListNode next = head.next;
+            head.next = newHead;
+            newHead = head;
+            head = next;
+        }
+        return newHead;
+    }
+---------------------------------------------------------------
+234 Palindrome Linked List 28.0% Easy
+fast and slow pointers, 
+reverse second ll
+compare ll
+
+public boolean isPalindrome(ListNode head) {
+    ListNode fast = head, slow = head;
+    while (fast != null && fast.next != null) {
+        fast = fast.next.next;
+        slow = slow.next;
+    }
+    if (fast != null) { // odd nodes: let right half smaller
+        slow = slow.next;
+    }
+    slow = reverse(slow);
+    fast = head;
+    
+    while (slow != null) {
+        if (fast.val != slow.val) {
+            return false;
+        }
+        fast = fast.next;
+        slow = slow.next;
+    }
+    return true;
+}
+
+public ListNode reverse(ListNode head) {
+    ListNode prev = null;
+    while (head != null) {
+        ListNode next = head.next;
+        head.next = prev;
+        prev = head;
+        head = next;
+    }
+    return prev;
+}
+===========================================================================================
+-------------------------------------------------------------------------
+48 Rotate Image 34.6% Medium
+
+Clockwise rotaion -> 
+	Transpose around diagonal then reverse left to right.
+	
+	class Solution {
+    public void rotate(int[][] matrix) {
+        
+        //validation length checks
+        if(matrix.length>1) {
+        
+            int temp=0;
+            //Transpose
+            for(int i=0;i<matrix.length;i++) {
+                for(int j=i;j<matrix.length;j++) {
+                    if(i==j)
+                        continue;
+
+                    temp = matrix[i][j];
+                    matrix[i][j]=matrix[j][i];
+                    matrix[j][i]=temp;
+                }
+            }   
+
+            // Reverse
+            for(int i=0;i<matrix.length;i++) {
+                for(int j=0; j<Math.ceil(matrix.length/2);j++){
+                    temp = matrix[i][j];
+                    matrix[i][j] = matrix[i][matrix.length-1-j];
+                    matrix[i][matrix.length-1-j]= temp;
+                }    
+            }
+        }
+    }
+}
+
+
+
+
+anticlockwise -> 
+	reverse left to right then transpose around newly formed diagonal. 
+	
+----------------------	
+
+49 Group Anagrams 27.4% Medium
+
+Things to learn -> sort string, char array to string, string to chararray, array.sort, retrurning list of list 
+
+class Solution {
+    
+    private String sortString (String s){
+        char [] charArray = s.toCharArray();
+        Arrays.sort(charArray);
+        return new String(charArray);
+    }
+    
+    public List<List<String>> groupAnagrams(String[] strs) {
+    
+        
+        HashMap<String,List<String>> hm = new HashMap<>();
+        
+        for(String s:strs){
+            String key = sortString(s);
+            if(hm.containsKey(key))
+                hm.get(key).add(s);
+            else {
+                ArrayList<String> temp = new ArrayList<>();
+                temp.add(s);
+                hm.put(key,temp);
+            }
+                
+        }
+        
+       return new ArrayList<List<String>>(hm.values());
+        
+    }
+}
+-----------------------------------------------
+78 Subsets 31.3% Medium
+
+// see most liked solution, complex but covers many questions !
+    public List<List<Integer>> subsets(int[] nums) {
+     
+        List<List<Integer>> retSet = new ArrayList<>();
+        
+        retSet.add(new ArrayList<Integer>()); // null subset.
+        
+        for(int n : nums){
+            int size = retSet.size();
+            
+            for(int i=0; i<retSet.size(); i++){
+                List<Integer> newSubset = new ArrayList<>(retSet.get(i));
+                newSubset.add(n);
+                retSet.add(newSubset);
+            }
+        }
+        return retSet;
+    }
+----------------------------------------------------
+98 Validate Binary Search Tree 20.9% Medium
+
+class Solution {
+    
+    private boolean validateBST(TreeNode root, long lower, long higher){
+        if(root == null)
+            return true;
+        
+        if(root.val < higher && root.val > lower){
+            return (validateBST(root.left,lower,root.val) && validateBST(root.right,root.val,higher));
+        }
+        return false;
+    }
+   
+    
+    public boolean isValidBST(TreeNode root) {
+        if(root == null)
+            return true;
+        
+        return validateBST(root,Long.MIN_VALUE,Long.MAX_VALUE);
+    }
+}
+
+P>S here Long.MAX_VALUE and Long.MIN_VALUE are considered , to make sure INnt.MAX_VALUE and MIN_VALUE are valid inputs for root !
+----------------------------------------------------	
+2 Add Two Numbers 23.0% Medium
+
+public class Solution {
+    public ListNode addTwoNumbers(ListNode l1, ListNode l2) {
+        ListNode c1 = l1;
+        ListNode c2 = l2;
+        ListNode sentinel = new ListNode(0);
+        ListNode d = sentinel;
+        int sum = 0;
+        while (c1 != null || c2 != null) {
+            sum /= 10;
+            if (c1 != null) {
+                sum += c1.val;
+                c1 = c1.next;
+            }
+            if (c2 != null) {
+                sum += c2.val;
+                c2 = c2.next;
+            }
+            d.next = new ListNode(sum % 10);
+            d = d.next;
+        }
+        if (sum / 10 == 1)
+            d.next = new ListNode(1);
+        return sentinel.next;
+    }
+}
+
+or to avaoid writing last if you can doing
+while(c1 != null || c2 != null || sum > 9) !! think
+-----------------------------------------------------------------------------
+89 Gray Code 36.3% Medium
+class Solution {
+    public List<Integer> grayCode(int n) {
+        List<Integer> result = new LinkedList<>();
+        for (int i = 0; i < Math.pow(2,n); i++) 
+            result.add(i ^ i/2);
+        return result;
+    }
+}
+----------------------------------------------------------------------------------------------------------	
+	
+5 Longest Palindromic Substring 23.0% Medium
+
+public class Solution {
+private int lo, maxLen;
+
+public String longestPalindrome(String s) {
+	int len = s.length();
+	if (len < 2)
+		return s;
+	
+    for (int i = 0; i < len-1; i++) {
+     	extendPalindrome(s, i, i);  //assume odd length, try to extend Palindrome as possible
+     	extendPalindrome(s, i, i+1); //assume even length.
+    }
+    return s.substring(lo, lo + maxLen);
+}
+
+private void extendPalindrome(String s, int j, int k) {
+	while (j >= 0 && k < s.length() && s.charAt(j) == s.charAt(k)) {
+		j--;
+		k++;
+	}
+	if (maxLen < k - j - 1) {
+		lo = j + 1;
+		maxLen = k - j - 1;
+	}
+}}
+----------------------------------------------------------------------------------------------------------
+
+15 3Sum 18.8% Medium ; return set of 3 numbers such that sum is zero.
+
+public List<List<Integer>> threeSum(int[] nums) {
+    List<List<Integer>> res = new ArrayList<>();
+    Arrays.sort(nums);
+    for (int i = 0; i + 2 < nums.length; i++) {
+        if (i > 0 && nums[i] == nums[i - 1]) {              // skip same result
+            continue;
+        }
+        int j = i + 1, k = nums.length - 1;  
+        int target = -nums[i];
+        while (j < k) {
+            if (nums[j] + nums[k] == target) {
+                res.add(Arrays.asList(nums[i], nums[j], nums[k]));
+                j++;
+                k--;
+                while (j < k && nums[j] == nums[j - 1]) j++;  // skip same result
+                while (j < k && nums[k] == nums[k + 1]) k--;  // skip same result
+            } else if (nums[j] + nums[k] > target) {
+                k--;
+            } else {
+                j++;
+            }
+        }
+    }
+    return res;
+}
+----------------------------------------------------------------------------------------------------------
+17 Letter Combinations of a Phone Number 28.6% Medium
+public List<String> letterCombinations(String digits) {
+		LinkedList<String> ans = new LinkedList<String>();
+		if(digits.isEmpty()) return ans;
+		String[] mapping = new String[] {"0", "1", "abc", "def", "ghi", "jkl", "mno", "pqrs", "tuv", "wxyz"};
+		ans.add("");
+		for(int i =0; i<digits.length();i++){
+			int x = Character.getNumericValue(digits.charAt(i));
+			while(ans.peek().length()==i){
+				String t = ans.remove();
+				for(char s : mapping[x].toCharArray())
+					ans.add(t+s);
+			}
+		}
+		return ans;
+	}
+----------------------------------------------------------------------------------------------------------	
+127 Word Ladder 19.6% Medium
+----------------------------------------------------------------------------------------------------------	
+139 Word Break 25.2% Medium
+
+public class Solution {
+    public boolean wordBreak(String s, Set<String> dict) {
+        
+        boolean[] f = new boolean[s.length() + 1];
+        
+        f[0] = true;
+		for(int i=1; i <= s.length(); i++){
+            for(int j=0; j < i; j++){
+                if(f[j] && dict.contains(s.substring(j, i))){
+                    f[i] = true;
+                    break;
+                }
+            }
+        }
+        
+        return f[s.length()];
+    }
+}
+----------------------------------------------------------------------------------------------------------
+199 Binary Tree Right Side View 34.3% Medium
+The core idea of this algorithm:
+
+1.Each depth of the tree only select one node.
+2. View depth is current size of result list.
+
+Here is the code:
+public class Solution {
+    public List<Integer> rightSideView(TreeNode root) {
+        List<Integer> result = new ArrayList<Integer>();
+        rightView(root, result, 0);
+        return result;
+    }
+    
+    public void rightView(TreeNode curr, List<Integer> result, int currDepth){
+        if(curr == null){
+            return;
+        }
+        if(currDepth == result.size()){
+            result.add(curr.val);
+        }
+        
+        rightView(curr.right, result, currDepth + 1);
+        rightView(curr.left, result, currDepth + 1);
+        
+    }
+}
+
+If the currDepth is equal to the result size, then we know we have not yet added the "right-most" TreeNode yet.
+Once we add the TreeNode for the current level, the result size will be greater than currDepth and we know we will not need to add anymore nodes for the current level.
+
+if you are supposed to display the left view , call curr.left first ! 
+----------------------------------------------------------------------------------------------------------
+
+238 Product of Array Except Self 42.6% Medium
+
+So the basic idea is to divide the multiplying process into two passes. Hence it will not require division. Brilliant idea.
+
+public class Solution {
+public int[] productExceptSelf(int[] nums) {
+    int n = nums.length;
+    int[] res = new int[n];
+    res[0] = 1;
+    for (int i = 1; i < n; i++) {
+        res[i] = res[i - 1] * nums[i - 1];
+    }
+    int right = 1;
+    for (int i = n - 1; i >= 0; i--) {
+        res[i] *= right;
+        right *= nums[i];
+    }
+    return res;
+}
+
+calculate from left to right and then right to left in two passes
+----------------------------------------------------------------------------------------------------------
+240 Search a 2D Matrix II 34.4% Medium
+ Q :- n*n matrix, sorted left to right and sorted top to bottom, search for the given value
+
+We start search the matrix from top right corner, initialize the current position to top right corner, 
+if the target is greater than the value in current position, then the target can not be in entire row of current position because the row is sorted, 
+if the target is less than the value in current position, then the target can not in the entire column because the column is sorted too. 
+We can rule out one row or one column each time, so the time complexity is O(m+n).
+
+public class Solution {
+    public boolean searchMatrix(int[][] matrix, int target) {
+        if(matrix == null || matrix.length < 1 || matrix[0].length <1) {
+            return false;
+        }
+        int col = matrix[0].length-1;
+        int row = 0;
+        while(col >= 0 && row <= matrix.length-1) {
+            if(target == matrix[row][col]) {
+                return true;
+            } else if(target < matrix[row][col]) {
+                col--;
+            } else if(target > matrix[row][col]) {
+                row++;
+            }
+        }
+        return false;
+    }
+}
+----------------------------------------------------------------------------------
+141 Linked List Cycle 37.0% Medium
+
+public class Solution {
+    public boolean hasCycle(ListNode head) {
+        if(head == null || head.next == null || head.next.next == null)
+            return false;
+        
+        ListNode slow = head;   
+        ListNode fast = head;
+        
+        while(slow != null && fast != null && fast.next!= null) {
+            slow = slow.next;
+            fast = fast.next.next;
+            
+            if(slow == fast)
+                return true;
+        }
+        return false;
+    }
+}
+----------------------------------------------------------------------------------
+167 Two Sum II – Input array is sorted 47.8% Medium
+
+class Solution {
+    public int[] twoSum(int[] numbers, int target) {
+        //validation
+        
+        //initialization
+        Map<Integer,Integer> hm = new HashMap<>();
+        int [] result = new int[2];
+        for(int i=0;i<numbers.length;i++){
+            if(hm.containsKey(target-numbers[i])){
+                result[0] = hm.get(target-numbers[i])+1;
+                result[1]=i+1;
+            }
+            
+            else hm.put(numbers[i],i);
+        }
+     
+        return result;
+    }
+}
+---------------------------------------------------------------------------
+186 Reverse Words in a String II 29.1% Medium
+ In place
+ convert string to char array ...
+ 
+ swap (1st element with last and so on)
+ 
+ then swap again on the basis on space
+ 
+ string buffer. reverse can be used here !! visit again
+---------------------------------------------------------------------------
+
+199 Binary Tree Right Side View 34.3% Medium
+200 Number of Islands 27.6% Medium
+---------------------------------------------------------------------------------------
+215 Kth Largest Element in an Array 33.1% Medium
+solution 1 :- 
+public int findKthLargest(int[] nums, int k) {
+        final int N = nums.length;
+        Arrays.sort(nums);
+        return nums[N - k];
+}
+
+Solution 2 :- 
+public int findKthLargest(int[] nums, int k) {
+
+    final PriorityQueue<Integer> pq = new PriorityQueue<>();
+    for(int val : nums) {
+        pq.offer(val);n
+
+        if(pq.size() > k) {
+            pq.poll();
+        }
+    }
+    return pq.peek();
+}
+
+one more best solution - not interested
+---------------------------------------------------------------------------------------
+236 Lowest Common Ancestor of a Binary Tree 28.8% Medium
+
+If the current (sub)tree contains both p and q, then the function result is their LCA. 
+If only one of them is in that subtree, then the result is that one of them. 
+If neither are in that subtree, the result is null/None/nil.
+
+public TreeNode lowestCommonAncestor(TreeNode root, TreeNode p, TreeNode q) {
+        if (root == null || root == p || root == q) {
+            return root;    
+        }
+        TreeNode left = lowestCommonAncestor(root.left, p, q);
+        TreeNode right = lowestCommonAncestor(root.right, p, q);
+        
+        if (left == null && right == null) {
+           return null;
+        } else if (left == null) {
+            return right;
+        } else if (right == null){
+            return left;
+        } else {
+            return root;
+        }
+    }
+------------------------------------------------------------------------------------------
+42 Trapping Rain Water 32.2% Hard
+
+Basically this solution runs two pointers from two sides to the middle, and the plank is used to record the height of the elevation within a certain range, 
+plank height can only increase (or remain the same) from two sides to the middle. If the current pointer is pointing at a number that is less than the current plank height, 
+the difference between plank height and the number would be the amount of water trapped. Otherwise, A[i] == plank, no water is trapped.
+
+public class Solution {
+    public int trap(int[] A) {
+        int i = 0, j = A.length - 1, result = 0, plank = 0;
+        while(i <= j){
+            plank = plank < Math.min(A[i], A[j]) ? Math.min(A[i], A[j]) : plank;
+            result = A[i] >= A[j] ? result + (plank - A[j--]) : result + (plank - A[i++]);
+        }
+        return result;
+    }
+}
+-----------------------------------------------------------------------------
+23 Merge k Sorted Lists 23.3% Hard
+can be done in (Nlogk)
+- create a min heap of size k, put minimum first of each list in heap.
+- pop minimum and push next element of that same list
+- repeat till the queue is not empty.
+
+Things to learn -> comparator, getter setter etc.
+----------------------------------------------------------------------------------------------------------
+126 Word Ladder II 13.6% Hard
+----------------------------------------------------------------------------------------------------------
+138 Copy List with Random Pointer 26.1% Hard
+
+public RandomListNode copyRandomList(RandomListNode head) {
+  if (head == null) return null;
+  
+  Map<RandomListNode, RandomListNode> map = new HashMap<RandomListNode, RandomListNode>();
+  
+  // loop 1. copy all the nodes
+  RandomListNode node = head;
+  while (node != null) {
+    map.put(node, new RandomListNode(node.label));
+    node = node.next;
+  }
+  
+  // loop 2. assign next and random pointers
+  node = head;
+  while (node != null) {
+    map.get(node).next = map.get(node.next);
+    map.get(node).random = map.get(node.random);
+    node = node.next;
+  }
+  
+  return map.get(head);
+}
+----------------------------------------------------------------------------------------------------------
+
+146 LRU Cache 15.8% Hard
+-----------------------------------------------------------------------------------
+239 Sliding Window Maximum 27.3% Hard
+
+For Example: A = [2,1,3,4,6,3,8,9,10,12,56], w=4
+
+partition the array in blocks of size w=4. The last block may have less then w.
+2, 1, 3, 4 | 6, 3, 8, 9 | 10, 12, 56|
+
+Traverse the list from start to end and calculate max_so_far. Reset max after each block boundary (of w elements).
+left_max[] = 2, 2, 3, 4 | 6, 6, 8, 9 | 10, 12, 56
+
+Similarly calculate max in future by traversing from end to start.
+right_max[] = 4, 4, 4, 4 | 9, 9, 9, 9 | 56, 56, 56
+
+now, sliding max at each position i in current window, sliding-max(i) = max{right_max(i), left_max(i+w-1)}
+sliding_max = 4, 6, 6, 8, 9, 10, 12, 56
+
+
+public static int[] slidingWindowMax(final int[] in, final int w) {
+    final int[] max_left = new int[in.length];
+    final int[] max_right = new int[in.length];
+
+    max_left[0] = in[0];
+    max_right[in.length - 1] = in[in.length - 1];
+
+    for (int i = 1; i < in.length; i++) {
+        max_left[i] = (i % w == 0) ? in[i] : Math.max(max_left[i - 1], in[i]);
+
+        final int j = in.length - i - 1;
+        max_right[j] = (j % w == 0) ? in[j] : Math.max(max_right[j + 1], in[j]);
+    }
+
+    final int[] sliding_max = new int[in.length - w + 1];
+    for (int i = 0, j = 0; i + w <= in.length; i++) {
+        sliding_max[j++] = Math.max(max_right[i], max_left[i + w - 1]);
+    }
+
+    return sliding_max;
+}
+-----------------------------------------------------------------------------------
+using deque
+
+We scan the array from 0 to n-1, keep "promising" elements in the deque. The algorithm is amortized O(n) as each element is put and polled once.
+
+At each i, we keep "promising" elements, which are potentially max number in window [i-(k-1),i] or any subsequent window. This means
+
+If an element in the deque and it is out of i-(k-1), we discard them. We just need to poll from the head, as we are using a deque and elements are ordered as the sequence in the array
+
+Now only those elements within [i-(k-1),i] are in the deque. We then discard elements smaller than a[i] from the tail. This is because if a[x] <a[i] and x<i, then a[x] has no chance to be the "max" in [i-(k-1),i], or any other subsequent window: a[i] would always be a better candidate.
+
+As a result elements in the deque are ordered in both sequence in array and their value. At each step the head of the deque is the max element in [i-(k-1),i]
+
+public int[] maxSlidingWindow(int[] a, int k) {		
+		if (a == null || k <= 0) {
+			return new int[0];
+		}
+		int n = a.length;
+		int[] r = new int[n-k+1];
+		int ri = 0;
+		// store index
+		Deque<Integer> q = new ArrayDeque<>();
+		for (int i = 0; i < a.length; i++) {
+			// remove numbers out of range k
+			while (!q.isEmpty() && q.peek() < i - k + 1) {
+				q.poll();
+			}
+			// remove smaller numbers in k range as they are useless
+			while (!q.isEmpty() && a[q.peekLast()] < a[i]) {
+				q.pollLast();
+			}
+			// q contains index... r contains content
+			q.offer(i);
+			if (i >= k - 1) {
+				r[ri++] = a[q.peek()];
+			}
+		}
+		return r;
+	}
+-----------------------------------------------------------------------------
+297 Serialize and Deserialize Binary Tree 27.8% Hard
+
+public class Codec {
+    private static final String spliter = ",";
+    private static final String NN = "X";
+
+    // Encodes a tree to a single string.
+    public String serialize(TreeNode root) {
+        StringBuilder sb = new StringBuilder();
+        buildString(root, sb);
+        return sb.toString();
+    }
+
+    private void buildString(TreeNode node, StringBuilder sb) {
+        if (node == null) {
+            sb.append(NN).append(spliter);
+        } else {
+            sb.append(node.val).append(spliter);
+            buildString(node.left, sb);
+            buildString(node.right,sb);
+        }
+    }
+    // Decodes your encoded data to tree.
+    public TreeNode deserialize(String data) {
+        Deque<String> nodes = new LinkedList<>();
+        nodes.addAll(Arrays.asList(data.split(spliter)));
+        return buildTree(nodes);
+    }
+    
+    private TreeNode buildTree(Deque<String> nodes) {
+        String val = nodes.remove();
+        if (val.equals(NN)) return null;
+        else {
+            TreeNode node = new TreeNode(Integer.valueOf(val));
+            node.left = buildTree(nodes);
+            node.right = buildTree(nodes);
+            return node;
+        }
+    }
+}
+-----------------------------------------------------------------------------
+find paths between 2 nodes ? Or find path between root and node
+
+// Function to check if there is a path from root  
+// to the given node. It also populates  
+// 'arr' with the given path  
+static boolean getPath(Node root, Vector<Integer> arr, int x)  
+{  
+    // if root is null  
+    // there is no path  
+    if (root==null)  
+        return false;  
+  
+    // push the node's value in 'arr'  
+    arr.add(root.data);  
+  
+    // if it is the required node  
+    // return true  
+    if (root.data == x)  
+        return true;  
+  
+    // else check whether the required node lies  
+    // in the left subtree or right subtree of  
+    // the current node  
+    if (getPath(root.left, arr, x) || getPath(root.right, arr, x))  
+        return true;  
+  
+    // required node does not lie either in the  
+    // left or right subtree of the current node  
+    // Thus, remove current node's value from  
+    // 'arr'and then return false  
+    arr.remove(arr.size()-1);  
+    return false;  
+}  
+
+// Function to print the path between  
+// any two nodes in a binary tree  
+static void printPathBetweenNodes(Node root, int n1, int n2)  ------- first call !
+{  
+    // vector to store the path of  
+    // first node n1 from root  
+    Vector<Integer> path1= new Vector<Integer>();  
+  
+    // vector to store the path of  
+    // second node n2 from root  
+    Vector<Integer> path2=new Vector<Integer>();  
+  
+    getPath(root, path1, n1);  
+    getPath(root, path2, n2);  
+  
+    int intersection = -1;  
+  
+    // Get intersection point  
+    int i = 0, j = 0;  
+    while (i != path1.size() || j != path2.size()) {  
+  
+        // Keep moving forward until no intersection  
+        // is found  
+        if (i == j && path1.get(i) == path2.get(i)) {  
+            i++;  
+            j++;  
+        }  
+        else {  
+            intersection = j - 1;  
+            break;  
+        }  
+    }  
+
+	// Print the required path  
+    for ( i = path1.size() - 1; i > intersection; i--)  
+        System.out.print( path1.get(i) + " "); 
+  
+    for ( i = intersection; i < path2.size(); i++)  
+        System.out.print( path2.get(i) + " ");  
+}  
+-----------------------------------------------------------------------------
+		2 D Matrix problems !
+		
+63. find uniqe paths from source to destination in presence of obstacles
+
+----------- easy solution , but lot of space.
+class Solution {
+    public int uniquePathsWithObstacles(int[][] obstacleGrid) {
+        int rows = obstacleGrid.length;
+        int cols = obstacleGrid[0].length;
+        int[][] path = new int[rows][cols];  // 2d array storing paths at each cell
+		
+		// this loop initiates first column which will be used as a base.
+		// if while going down you find obstacle, mark everything zero from that cell onwards.
+        for (int row = 0; row < rows; row++) {
+            if (obstacleGrid[row][0] == 1) {
+                while (row < rows) {
+                    path[row][0] = 0;
+                    row++;
+                }
+            } else {
+                path[row][0] = 1;
+            }
+        }
+
+		//this loop initiates first row, which will be used as a base for future calcualtions
+		// if while going right you find obstacle, mark everything zero from that cell onwards !
+        for (int col = 0; col < cols; col++) {
+            if (obstacleGrid[0][col] == 1) {
+                while (col < cols) {
+                    path[0][col] = 0;
+                    col++;
+                }
+            } else {
+                path[0][col] = 1;
+            }
+        }
+
+		// by now we have top row and left most column ready now use them in future references
+		// if obstacle found in between, put it as zero or add left + top cell and you are done.
+		
+        for (int row = 1; row < rows; row++) {
+            for (int col = 1; col < cols; col++) {
+                if (obstacleGrid[row][col] == 0) {
+                    path[row][col] = path[row - 1][col] + path[row][col - 1];
+                } else path[row][col] = 0;
+            }
+        }
+		
+		// return the destination cell. 
+        return path[rows - 1][cols - 1];
+    }
+}
+
+Solution 2 :- with less space complexity :- 
+
+public int uniquePathsWithObstacles(int[][] obstacleGrid) {
+    int width = obstacleGrid[0].length;
+    int[] dp = new int[width];
+    dp[0] = 1;
+    for (int[] row : obstacleGrid) {
+        for (int j = 0; j < width; j++) {
+            if (row[j] == 1)
+                dp[j] = 0;
+            else if (j > 0)
+                dp[j] += dp[j - 1];
+        }
+    }
+    return dp[width - 1];
+}
+
+here is my understanding:
+for every row in obstacleGrid , every element(except the 1st one) of dp inherits the a value from "old" dp, in the same location. It means that new point will inherits the paths passing the above point.
+then the new point will take in the paths come from its left.
+if the value of the point is 1. no path can pass it so new dp will be 0.
+
+I still have a question:
+why the value of dp[0] is always 1?
+= > I had this confusion too. But when u take a second look, inside the loop, if row[j]== 1, 
+the dp[j] will be updated to 0. So if j == 0, the dp[0] will be updated as well.
+-----------------------------------------------------------------------------
+200. Number of islands :-
+
+[1 0 1 1]
+[0 1 1 0]
+[0 0 0 0]
+[1 0 1 0]  -> 4 
+
+    public int numIslands(char[][] grid) {
+        int islands = 0;
+        for (int i = 0; i < grid.length; i++) {
+            for (int j = 0; j < grid[i].length; j++) {
+                if (grid[i][j] == '1') {
+                    dfsMark(grid, i, j);
+                    islands++;
+                }
+            }
+        }
+        return islands;
+    }
+    
+    private void dfsMark(char[][] grid, int i, int j) {
+        if (i < 0 || i >= grid.length || j < 0 || j >= grid[i].length) return;
+        if (grid[i][j] != '1') return;
+        
+        grid[i][j] = 'X';
+        dfsMark(grid, i, j + 1);
+        dfsMark(grid, i + 1, j);
+        dfsMark(grid, i, j - 1);
+        dfsMark(grid, i - 1, j);
+    }
+-------------------------------------------------------------------------------------------
+- reach from source co-ordinate to taret co-ordinate in 2d matrix, 
+- Matrix has 1's and 0's only valid path is 1'same
+
+BFS ----------------
+import java.util.ArrayDeque;
+import java.util.Queue;
+
+// queue node used in BFS
+class Node
+{
+	// (x, y) represents matrix cell coordinates
+	// dist represent its minimum distance from the source
+	int x, y, dist;
+
+	Node(int x, int y, int dist) {
+		this.x = x;
+		this.y = y;
+		this.dist = dist;
+	}
+};
+
+class Util
+{
+	// M x N matrix
+	private static final int M = 10;
+	private static final int N = 10;
+
+	// Below arrays details all 4 possible movements from a cell
+	private static final int row[] = { -1, 0, 0, 1 };
+	private static final int col[] = { 0, -1, 1, 0 };
+
+	// Function to check if it is possible to go to position (row, col)
+	// from current position. The function returns false if (row, col)
+	// is not a valid position or has value 0 or it is already visited
+	private static boolean isValid(int mat[][], boolean visited[][],
+													int row, int col)
+	{
+		return (row >= 0) && (row < M) && (col >= 0) && (col < N)
+					   && mat[row][col] == 1 && !visited[row][col];
+	}
+
+	// Find Shortest Possible Route in a matrix mat from source
+	// cell (i, j) to destination cell (x, y)
+	private static void BFS(int mat[][], int i, int j, int x, int y)
+	{
+		// construct a matrix to keep track of visited cells
+		boolean[][] visited = new boolean[M][N];
+
+		// create an empty queue
+		Queue<Node> q = new ArrayDeque<>();
+
+		// mark source cell as visited and enqueue the source node
+		visited[i][j] = true;
+		q.add(new Node(i, j, 0));
+
+		// stores length of longest path from source to destination
+		int min_dist = Integer.MAX_VALUE;
+
+		// run till queue is not empty
+		while (!q.isEmpty())
+		{
+			// pop front node from queue and process it
+			Node node = q.poll();
+
+			// (i, j) represents current cell and dist stores its
+			// minimum distance from the source
+			i = node.x;
+			j = node.y;
+			int dist = node.dist;
+
+			// if destination is found, update min_dist and stop
+			if (i == x && j == y)
+			{
+				min_dist = dist;
+				break;
+			}
+
+			// check for all 4 possible movements from current cell
+			// and enqueue each valid movement
+			for (int k = 0; k < 4; k++)
+			{
+				// check if it is possible to go to position
+				// (i + row[k], j + col[k]) from current position
+				if (isValid(mat, visited, i + row[k], j + col[k]))
+				{
+					// mark next cell as visited and enqueue it
+					visited[i + row[k]][j + col[k]] = true;
+					q.add(new Node(i + row[k], j + col[k], dist + 1));
+				}
+			}
+		}
+
+		if (min_dist != Integer.MAX_VALUE) {
+			System.out.print("The shortest path from source to destination "
+							+ "has length " + min_dist);
+		}
+		else {
+			System.out.print("Destination can't be reached from source");
+		}
+	}
+
+	// Shortest path in a Maze
+	public static void main(String[] args)
+	{
+		// input maze
+		int[][] mat =
+		{
+			{ 1, 1, 1, 1, 1, 0, 0, 1, 1, 1 },
+			{ 0, 1, 1, 1, 1, 1, 0, 1, 0, 1 },
+			{ 0, 0, 1, 0, 1, 1, 1, 0, 0, 1 },
+			{ 1, 0, 1, 1, 1, 0, 1, 1, 0, 1 },
+			{ 0, 0, 0, 1, 0, 0, 0, 1, 0, 1 },
+			{ 1, 0, 1, 1, 1, 0, 0, 1, 1, 0 },
+			{ 0, 0, 0, 0, 1, 0, 0, 1, 0, 1 },
+			{ 0, 1, 1, 1, 1, 1, 1, 1, 0, 0 },
+			{ 1, 1, 1, 1, 1, 0, 0, 1, 1, 1 },
+			{ 0, 0, 1, 0, 0, 1, 1, 0, 0, 1 },
+		};
+
+		// Find shortest path from source (0, 0) to
+		// destination (7, 5)
+		BFS(mat, 0, 0, 7, 5);
+	}
+}
+-------------------------------------------------------
+DFS :-
+
+class ShortestPath
+{
+	// M x N matrix
+	private static final int M = 10;
+	private static final int N = 10;
+
+	// Check if it is possible to go to (x, y) from current position. The
+	// function returns false if the cell has value 0 or already visited
+	private static boolean isSafe(int mat[][], int visited[][], int x, int y)
+	{
+		return !(mat[x][y] == 0 || visited[x][y] != 0);
+	}
+
+	// if not a valid position, return false
+	private static boolean isValid(int x, int y)
+	{
+		return (x < M && y < N && x >= 0 && y >= 0);
+	}
+
+	// Find Shortest Possible Route in a Matrix mat from source cell (0, 0)
+	// to destination cell (x, y)
+
+	// 'min_dist' stores length of longest path from source to destination
+	// found so far and 'dist' maintains length of path from source cell to
+	// the current cell (i, j)
+
+	public static int findShortestPath(int mat[][], int visited[][],
+					 int i, int j, int x, int y, int min_dist, int dist)
+	{
+		// if destination is found, update min_dist
+		if (i == x && j == y)
+		{
+			return Integer.min(dist, min_dist);
+		}
+
+		// set (i, j) cell as visited
+		visited[i][j] = 1;
+
+		// go to bottom cell
+		if (isValid(i + 1, j) && isSafe(mat, visited, i + 1, j)) {
+			min_dist = findShortestPath(mat, visited, i + 1, j, x, y,
+										min_dist, dist + 1);
+		}
+
+		// go to right cell
+		if (isValid(i, j + 1) && isSafe(mat, visited, i, j + 1)) {
+			min_dist = findShortestPath(mat, visited, i, j + 1, x, y,
+										min_dist, dist + 1);
+		}
+
+		// go to top cell
+		if (isValid(i - 1, j) && isSafe(mat, visited, i - 1, j)) {
+			min_dist = findShortestPath(mat, visited, i - 1, j, x, y,
+										min_dist, dist + 1);
+		}
+
+		// go to left cell
+		if (isValid(i, j - 1) && isSafe(mat, visited, i, j - 1)) {
+			min_dist = findShortestPath(mat, visited, i, j - 1, x, y,
+										min_dist, dist + 1);
+		}
+
+		// Backtrack - Remove (i, j) from visited matrix
+		visited[i][j] = 0;
+
+		return min_dist;
+	}
+
+	public static void main(String[] args)
+	{
+		int mat[][] =
+		{
+				{ 1, 1, 1, 1, 1, 0, 0, 1, 1, 1 },
+				{ 0, 1, 1, 1, 1, 1, 0, 1, 0, 1 },
+				{ 0, 0, 1, 0, 1, 1, 1, 0, 0, 1 },
+				{ 1, 0, 1, 1, 1, 0, 1, 1, 0, 1 },
+				{ 0, 0, 0, 1, 0, 0, 0, 1, 0, 1 },
+				{ 1, 0, 1, 1, 1, 0, 0, 1, 1, 0 },
+				{ 0, 0, 0, 0, 1, 0, 0, 1, 0, 1 },
+				{ 0, 1, 1, 1, 1, 1, 1, 1, 0, 0 },
+				{ 1, 1, 1, 1, 1, 0, 0, 1, 1, 1 },
+				{ 0, 0, 1, 0, 0, 1, 1, 0, 0, 1 },
+		};
+
+		// construct a matrix to keep track of visited cells
+		int[][] visited = new int[M][N];
+
+		int min_dist = findShortestPath(mat, visited, 0, 0, 7, 5,
+										Integer.MAX_VALUE, 0);
+
+		if(min_dist != Integer.MAX_VALUE) {
+			System.out.println("The shortest path from source to destination "
+							  + "has length " + min_dist);
+		}
+		else {
+			System.out.println("Destination can't be reached from source");
+		}
+	}
+}
+---------------------------------------------------------------------------------------------------------------------------
+Design questions :- 
+1. Deck of cards
+2. locker types ( small , medium, large )
+3. twitter
+4. uber
+5. youtube
+6. online store
+7. parking lot.
+---------------------------------------------------------------------------------------------------------------------------
+heap problems :-
+
+Priority Queues: Priority queues can be efficiently implemented using Binary Heap because it supports insert(), delete() and extractmax(), decreaseKey() operations in O(logn) time.
+
+k largest(or smallest) elements in an array | added Min Heap method
+Method 1 (Use Max Heap)
+1) Build a Max Heap tree in O(n)
+2) Use Extract Max k times to get k maximum elements from the Max Heap O(klogn)
+
+Time complexity: O(n + klogn)
+------------------
+Method 2 Min heap
+
+1) Build a Min Heap MH of the first k elements (arr[0] to arr[k-1]) of the given array. O(k)
+
+2) For each element, after the kth element (arr[k] to arr[n-1]), compare it with root of MH.
+……a) If the element is greater than the root then make it root and call heapify for MH
+……b) Else ignore it.
+// The step 2 is O((n-k)*logk)
+
+3) Finally, MH has k largest elements and root of the MH is the kth largest element.
+
+Time Complexity: O(k + (n-k)Logk) without sorted output. If sorted output is needed then O(k + (n-k)Logk + kLogk)
+
+All of the above methods can also be used to find the kth largest (or smallest) element.
+-------------------------------------
+
+-----------------------
+complexities :- 
+http://bigocheatsheet.com/ 
+

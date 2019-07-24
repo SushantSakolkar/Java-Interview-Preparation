@@ -1,0 +1,247 @@
+Linked List :-
+
+class Node {
+	int data;
+	Node next;
+	
+	Node(int val){
+		this.data = val;
+		this.next = null;
+	}
+}
+
+insert at the front --------------------------------------------------------
+
+public Node insertFirst (Node head, int newVal){
+
+	Node newNode = new Node(newVal);
+	newNode.next = head;
+	head = newHead
+	return head;
+}
+
+
+insert at the end --------------------------------------------------------
+
+public Node insertLast (Node head, int val) {
+	
+	if(head == null) {
+		head = new Node(val);
+	}
+		
+	Node curr = head;
+	
+	// think about the looping condition
+	while(curr.next != null){
+		curr = curr.next;
+	}
+	
+	curr.next = new Node(val);
+	curr.next.next = null // not needed here, but dont forget to set next as null wherever required !
+	return head;
+}
+
+insert anywhere in after a given node. --------------------------------------------------------
+
+public Node insertNext (Node head, Node prevNode, int val){
+	
+	Node newNode = new Node(val);
+	
+	if(prevNode == null)
+		head = newNode;
+		
+	Node curr = head;
+	
+	while(curr != prevNode || curr != null){
+		curr = curr.next; 
+	}
+	
+	//check if found
+	if(curr == prevNode){
+		Node temp = curr.next;
+		curr.next = newNode;
+		newNode.next = temp;
+	}
+	else
+		throw new exception("Node not found"); // think about this.
+		
+	return head;		
+} !!!!!!!!!!!!1 -> wrong
+
+1. you dont need head , you just need prevNode
+2. you dont need temp node, you can save newNode.next = prevNode.next
+3. and then prev.next = newNode and you are done.
+-------------------------------------------
+delete a given key from linked list. --------------------------------------------------------
+
+1st check if head = key ? -> head = head.next // done
+otherwise, 
+prev node and current node .
+
+to delete 
+prev.next = current.next // current gets deleted. then gc will pick up the node.
+-------------------------------------------
+deleting list ----------------------------------------------------------------------------------------------------------------
+head = null ; thats it.
+--------------------------------------------------------------------------------------------------------------------------------
+nth node from end..
+start 2 pointers at the head, take one pointer to nth node.
+keep going next for both till that one reaches end, first one is answer
+----------------------------------------------------------------------------------------------------------------------------------
+find middle of linked list ---
+while (fast_ptr != null && fast_ptr.next != null) 
+            { 
+                fast_ptr = fast_ptr.next.next; 
+                slow_ptr = slow_ptr.next; 
+            } 
+---------------------------------------------------------------------------------------------------------------------------------------
+find loop , 
+
+public boolean loopExists(Node head){
+		
+	if(head == null)
+		return false;
+	
+	Node slow = head;
+	Node fast = head;
+	
+	while(slow !=null || fast != null fast.next != null) {
+		slow = slow.next;
+		fast = fast.next.next;
+		if(slow == fast)
+			return true;
+	}
+	return false;
+}
+---------------------------------------------------------------------------------------------------------------------------------------
+If loop found remove the loop ( for that you have to find the first element of the loop)
+
+141 Linked List Cycle 37.0% Medium
+
+public class Solution {
+    public boolean hasCycle(ListNode head) {
+        if(head == null || head.next == null || head.next.next == null)
+            return false;
+        
+        ListNode slow = head;   
+        ListNode fast = head;
+        
+        while(slow != null && fast != null && fast.next!= null) {
+            slow = slow.next;
+            fast = fast.next.next;
+            
+            if(slow == fast)
+                return true;
+        }
+        return false;
+    }
+}
+
+remove cycle???
+We do not need to count number of nodes in Loop. After detecting the loop, 
+if we start slow pointer from head and move both slow and fast pointers at same speed until fast don’t meet, they would meet at the beginning of the loop.
+  /* If loop exists */
+        if (slow == fast) { 
+            slow = node; 
+            while (slow.next != fast.next) { 
+                slow = slow.next; 
+                fast = fast.next; 
+            } 
+  
+            /* since fast->next is the looping point */
+            fast.next = null; /* remove loop */
+        } 
+
+
+find length of loop, fnd first element of loop ! important questions
+-----------------------
+Merge sorted linked list
+union and intersection of two linked lists
+-----------------------			
+160 Intersection of Two Linked Lists 30.2% Easy
+-> find length of both linked list while(node !=null) node = node.next; length++; return length;
+-> keep doing next list1 or 2 till length becomes equal, then keep doing both next next until intersection is found
+------------------------
+---------------------------------------------------------------
+206 Reverse Linked List 39.4% Easy
+public ListNode reverseList(ListNode head) {
+        
+        ListNode prev = null;
+        while(head!=null){
+            ListNode next = head.next;
+            head.next = prev;
+            prev = head;
+            head = next;
+        }
+        return prev;
+    }
+---------------------------------------------------------------
+234 Palindrome Linked List 28.0% Easy
+fast and slow pointers, 
+reverse second ll
+compare ll
+
+public boolean isPalindrome(ListNode head) {
+    ListNode fast = head, slow = head;
+    while (fast != null && fast.next != null) {
+        fast = fast.next.next;
+        slow = slow.next;
+    }
+    if (fast != null) { // odd nodes: let right half smaller
+        slow = slow.next;
+    }
+    slow = reverse(slow);
+    fast = head;
+    
+    while (slow != null) {
+        if (fast.val != slow.val) {
+            return false;
+        }
+        fast = fast.next;
+        slow = slow.next;
+    }
+    return true;
+}
+
+public ListNode reverse(ListNode head) {
+    ListNode prev = null;
+    while (head != null) {
+        ListNode next = head.next;
+        head.next = prev;
+        prev = head;
+        head = next;
+    }
+    return prev;
+}
+----------------------------------------
+
+1. Delete duplicate. 
+- maintain a HashSet , add if already not present, remove all future and , prev.next=current.next else previous=current. 
+- (if no buffer is allowed) , maintain 2 pointers , for each pointer move second pointer and delete duplicates. 
+
+2. Return kth to last
+- use 2 pointers , distance between them is k, when second reaches end return first.
+
+3. Delete any given node (No head or tail info is given)
+- keep copying next nodes info in current one and delete next. 
+
+4. Add 2 linked list 2->3>5 + 1->4->3 ; unit,10s,100s (easy )
+ 2->3>5 + 1->4->3 (100s,10s,1s) difficult ( read again ).
+ 
+5. IF a LL is palindrome. 
+ - Create Reverse a list , see if the reversed list is same as current one, if yes it is a palindrome.
+ - Use a stack, keep pushing till mid , then keep popping and compare. 
+ - There is one more recursive solution in CTCI, but chillax.
+
+6. If 2 linked list intersect. 
+- Run through each linked list to get the lengths and the tails.
+- Compare the tails. If they are different (by reference, not by value), return immediately. There is no intersection.
+- Set two pointers to the start of each linked list.
+- On the longer linked list, advance its pointer by the difference in lengths.
+- Now, traverse on each linked list until the pointers are the same.
+
+7. Loop detection and return node at the start of the loop. 
+- Create two pointers, FastPointer and SlowPointer.
+- Move FastPointer at a rate of 2 steps and SlowPointer at a rate of 1 step.
+- When they collide, move SlowPointer to LinkedListHead. Keep FastPointer where it is.
+- Move SlowPointer and FastPointer at a rate of one step. Return the new collision point.

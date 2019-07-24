@@ -1,0 +1,204 @@
+Stable sorting -> preserves order in case input is equal. 
+
+Internal sort or external sort? 
+internal -> in main memory / ram -> internal
+if disk exretnal memory used -> external.
+
+Recursive or non recursive.
+-> R -> quick, merge
+-> NR -> insertion ,selection.
+
+----------------------------------------------------------------------------------------------
+1. Selection sort :- 
+-> simplest , most intuitive. 
+
+sort array A :- 
+create new array. 
+pick minimum. 
+put it on 0th index, keep s^32 - 1 at minimum nos position. 
+-keep repeating for 1th index and so on. 
+
+problem :- 
+-> extra memory !
+ 
+Solution :- 
+1. find minimum 
+2. swap with the leftmost non considered index
+3. repeat. 
+
+selectionSort(A,n)
+{
+	for i=0 to n-2
+	{
+		iMin = i;
+		for j=i+1 to n-1
+		{
+			if(A[j]<A[iMin]
+			{
+				iMin = j
+			}
+		}
+		temp = a[i];
+		a[i]=a[iMin];
+		a[iMin]=temp;
+	}
+} 
+
+
+order :- n^2. 
+----------------------------------------------------------------------------------------------
+2. Bubble sort
+- pick first number , if it is greater than next number swap complete the scan
+- in this pass largest number comes on the right most side. 
+
+Pseudo Code 
+
+bubbleSort(A,n)
+{
+for k=0 to n-2
+ {
+  from 0 to n-2
+  {
+	if a[i] > a[i+1]
+	{
+		swap a[i] & a[i=1]
+	}
+  }
+ }
+}
+
+Analysis :- 
+worst :- n^2 	
+best :- o(n)
+avg :- n^2. 
+
+It is in place and stable sorting algo. 
+
+improvement ;- 
+1. second loop should not run always n-2, in the later passes right part will be sorted so loop can be reduced
+2. u can define a flag, if swapping does not happen set it to true, so that no redundant passes needed on sorted array. 
+----------------------------------------------------------------------------------------------
+
+3. Insertion sort :- 
+- more efficient than selection and bubble. 
+
+- divide 2 into sets sorted and unsorted
+- initially 1st index as sorted, rest as unsorted
+- pick one from unsorted part and insert it into sorted part
+- keep inserting at the proper place by shifting greater sorted elements on right. and u ll have sorted set.
+
+insertionSort(A,n)
+{
+	for i=1 to n-1 //unsorted
+	{
+		value=A[i];
+		hole=i;
+		
+		while (hole > 0 & A[hole-1]>A[hole])
+			{
+				A[hole]=A[hole-1];
+				hole--;
+			}
+		A[hole]=value; // right value at rigt position.	
+		
+	}
+}
+
+Analysis :- 
+Worst case :- reverse sorted.
+avg:- n^2. 
+best :- n.
+
+----------------------------------------------------------------------------------------------
+4. Merge sort :- 
+
+1. recursively split array in 2 until sublist has only 1 element.
+2. list with only 1 element is always sorted. 
+3. Then merge. 
+
+merge(L,R,A) //3 arrays as an argument.
+{
+	nL = length(L)
+	nR = length(R)
+	
+	i=0; // index of smallest unpicked in L
+	j=0; // index of smallest unpicked in R
+	k=1; //position of A that is getting filled.
+	
+	while(i<nL & j < nR)
+	{
+		if L[i]<R[j]
+			A[k]=L[i];
+			k++;
+			i++;
+		else
+			A[k]=R[j];
+			k++;
+			j++;
+	}
+	
+	while (i<nL)       // only one of below 2 whiles will get executed. 
+		A[k]=L[i];
+		k++;
+		i++;
+		
+	while (j<nR)
+		A[k]=R[j];
+			k++;
+			j++;
+}
+
+mergeSort(A) // rest of the logic. 
+{
+	n=length(A)
+	if(n<2)   // end condition for recursion.
+	 return;
+	
+	mid= n/2
+	left=arrayOfSize(mid)   // define left subArray
+	right=arrayOfSize(n-mid) //define right subArray.
+	
+	for(i=0 to mid-1)
+	{
+		left[i]=A[i]    // create left subArray
+	}
+	
+	for (i=mid to n-1)
+	{
+		right[i-mid]=A[i]  // create right subArray
+	}
+	
+	mergeSort(left) // recursively split left
+	mergeSort(right) // recursively split right
+	merge(left,right,A)
+	
+}
+
+// Try analyzing on a notebook. 
+
+- It is a divide and conquer problem
+:- break a problem in sub-problme ,find solution of sub problem and then find solution of main problem.
+
+- It is recursive  
+- It is stable algo. 
+- not in place. 
+:- when array is divided into 2 sublist 2 new subarray gets created. 
+so space complexity :- O(n) // space is dependant on size of array.
+time :- best :- n ; worst :- nlogn ; avg :- nlogn. 
+
+----------------------------------------------------------------------------------------------
+
+5. Quick sort. 	
+- recursive
+- Divide and conqur
+- avg - nlogn ;  worst - n^2. 
+- practically best. 
+- worst case is avoided by using randomised quick sort which reduces the probability of worst case.
+- most language libraries implement quick sort. 
+
+logic :- 
+- select any number from list
+- rearrange list in a way that all elements less than pivot are on left and greater on right. ( left or right should not be necessarily sorted. )
+- two subproblems sublist on left and right keep repeating. 
+
+

@@ -1,0 +1,54 @@
+DATA TYPES Conversions
+
+--------- 1. From String ----
+1.int -> 		Integer.parseInt(s);
+2.character -> 		s.charAt(0);
+3.double ->		Double.valueOf(s).doubleValue();
+3.long ->		Long.valueOf(s).longValue();
+3.float ->		Float.valueOf(s).floatValue();
+
+--------- 2. To String ---------
+1.int -> 		Integer.toString(i);
+2.character ->	character.toString(c);
+3.double -> Double.
+4.float -> Float.
+5.long -> Long.
+
+---- 3. From Character -------------
+1.int -> 			Character.getNumericalValue();
+2. to asci int ->	(int) c;
+------4. From int ------------------------
+1. char -> Character.toChars(i + 97)
+-------------------------------------------
+int to Integer -> Integer i = new Integer(int);
+Character ch = 'c';
+String s= "";
+-------------------------------------------
+
+
+List to set
+Set<String> hs = new HashSet<>(list);
+----------
+Set to List
+List<Integer> ls = new ArrayList<>(hs);
+-------------------------------------------
+char to integer
+int x = Character.getNumericValue(digits.charAt(i));
+-------------------------------------------
+collection to array :- 
+- toArray(); -> to covert into array. 
+-------------------------------------------
+convert char to upper case, to upper case :- 
+Character.toLowerCase('char');
+Character.toUpperCase(ch);
+-------------------------------------------
+Making a list out of hashmap values ---
+
+Map<String,Integer> hm1 = new HashMap<String,Integer>();
+        hm1.put("first",1);
+        hm1.put("second",2);
+        hm1.put("third",3);
+        
+        List<Integer> lst = new ArrayList<Integer>(hm1.values());
+        System.out.println(lst);
+-------------------------------------------		

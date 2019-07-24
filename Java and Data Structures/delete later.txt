@@ -1,0 +1,141 @@
+Queue data structure
+Queue<String> waitingQueue = new LinkedList<>();
+re think stock problem
+
+boolean array -> boolean[] notPrime = new boolean[n];
+
+prime :-
+for (int j = 2; i*j < n; j++) {
+                    notPrime[i*j] = true;
+                }
+				
+grey code
+------
+heap questions must !!
+Yash questions
+1. fill inventory when empty grocery
+2. employee, manager and director call hierarchy design problem
+3. tree join each level horizontally
+4. review, give word with maximum count, after scrollng down. 
+-------------------------------------------------
+4th 
+PriorityQueue<Integer> pq = new PriorityQueue<>(ints.subList(0, k));
+priority queue and its data structures
+
+list.subList(0,k); !!
+
+hs1.addAll(hs); adds unique values to existing hash set // union operation
+hs1.retainAll(hs); works like intersection ! only keeps common values
+hs1.removeAll(hs); only keeps values that are only present in hs1 and not hs ! ( like minus operator)
+
+String -> - int indexOf(char ch)-> returns first occurance of 'ch'
+methods :- 
+- char charAt(int index) -> char result = s.charAt(8);
+- String concat(String str) ->s.concat( "all the time");
+ Concatenates the specified string to the end of this string.
+- int indexOf(char ch)-> returns first occurance of 'ch'
+-> int length() -> useful for loops
+-> String replace(char oldChar, char newChar) 
+-> String[] split(String regex) => String[] arr= theNames.split(/)
+-> Str.substring(10, 15) -> beginindex inclusive, endIndex exclusive. 
+-> toCharArray -> Char []a=Str.toCharArray() ;
+-> Str.toLowerCase()
+-> Str.toUpperCase()
+-> Str.trim();
+
+-------------------
+Implementation :- 
+class Graph
+{
+	public Node[] nodes;
+}
+
+class Node
+{
+	public String name;
+	public Node[] children;
+}
+
+Implementaion :-
+void search (Node root)
+{
+	if (root == Null) return;
+	visit(root);
+	root.visited=true;
+	
+	for each(Node n in root.adjacent)
+	{
+		if(n.visited==Null)
+		{
+			search(n);
+		}	
+	}
+}
+-----------------------------
+Merge sort :- 
+- not in place
+- space complexity is o(N)
+- recursive
+1. recursively split array in 2 until sublist has only 1 element.
+2. list with only 1 element is always sorted. 
+3. Then merge. 
+
+mergeSort(A) // rest of the logic. 
+{
+	n=length(A)
+	if(n<2)   // end condition for recursion.
+	 return;
+	
+	mid= n/2
+	left=arrayOfSize(mid)   // define left subArray
+	right=arrayOfSize(n-mid) //define right subArray.
+	
+	for(i=0 to mid-1)
+	{
+		left[i]=A[i]    // create left subArray
+	}
+	
+	for (i=mid to n-1)
+	{
+		right[i-mid]=A[i]  // create right subArray
+	}
+	
+	mergeSort(left) // recursively split left
+	mergeSort(right) // recursively split right
+	merge(left,right,A)
+	
+}
+time :- best :- n ; worst :- nlogn ; avg :- nlogn. 
+- stable
+--------------------------------------
+Quick sort
+
+5. Quick sort. 	
+- recursive
+- Divide and conqur
+- avg - nlogn ;  worst - n^2. 
+- practically best. 
+- worst case is avoided by using randomised quick sort which reduces the probability of worst case.
+- most language libraries implement quick sort. 
+
+logic :- 
+- select any number from list
+- rearrange list in a way that all elements less than pivot are on left and greater on right. ( left or right should not be necessarily sorted. )
+- two subproblems sublist on left and right keep repeating. 
+---------------------------------------------
+linked list reverse logic !!!!!!!!
+treemap !
+---------------
+int randomNumber = (int)Math.random()*(52+1) // this will give random number between 0 to 52 !
+
+Collections.sort(arraylist, Collections.reverseOrder());
+
+89 Gray Code 36.3% Medium
+class Solution {
+    public List<Integer> grayCode(int n) {
+        List<Integer> result = new LinkedList<>();
+        for (int i = 0; i < Math.pow(2,n); i++) 
+            result.add(i ^ i/2);
+        return result;
+    }
+}

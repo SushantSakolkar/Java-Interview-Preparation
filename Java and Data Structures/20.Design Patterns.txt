@@ -1,0 +1,42 @@
+singleton factory
+
+- Declare private constructor to prevent others from instantiating a class
+- create instance on demand in a static method that creates only if it doesnt exist
+
+public class Singleton {
+
+	private static Singleton instance;
+	
+	private Singleton();
+	
+	private static synchronized Singleton getInstance() {
+	
+		if(instance == null) {
+			instance = new Singleton();
+		}
+		
+		return instance;
+	}
+}
+-----------------------------------------------------------
+
+Abstract factory :- 
+
+public interface AbstractFactory<T> {
+
+	T create (String animalType);
+}
+
+public class AnimalFactory implements AbstractFactory<Animal> {
+
+	@Override
+		public Animal create(String animalType) {
+			if("dog".equalsIgnoreCase(animalType)) {
+				return new Dog();
+			}
+			.
+			.
+			.
+		}
+}
+--------------------------------------------------

@@ -1,0 +1,109 @@
+mutex vs monitor?
+Critical section
+- That part of the program where the shared memory is accessed is called the Critical Section.
+- to avoid race conditions and flawed results one must take proper precautions. 
+- the important point is that when one process is executing shared modifiable data in its critical section, 
+no other process is to be allowed to execute in its critical section.
+- So, use of critical section by processes must be mutually exclusive in time. 
+------------------------------------------------------------
+Mutex locks :- 
+- lock or mutex (from mutual exclusion) is a synchronization mechanism 
+ for enforcing limits on access to a resource in an environment where there are many threads of execution.
+- it a synchronisation flag for a critical code, making sure at a time only one process will have acces to that code
+and rest of the process will be waiting for the relase of that lock by process 1.
+ ------------------------------------------------------------
+ DeadLock :- 
+- when two or more process holding some resources are waiting for other resources held by other processes. 
+- avoid? -> pre-emption, no circular wait, mutex, no hold and wait.
+------------------------------------------------------------
+describe what actually happens between taking an image on camera and the output being showed to you.( I did not quite understand what they wanted in answer)
+- the incoming light rays are captured and are turned into electrical signals
+-  digital photograph is effectively an enormously long string of numbers describing the exact details of each pixel it contains
+- with this string we can do all sorts of manipulation ( download, change contrast, using manipulation. ) 
+------------------------------------------------------------
+difference between thread and process
+process - executing instance of a program
+- thread - subset of a process
+
+- A process can have multiple threads.
+- Threads basically share resources such as data structures ,address space of a process. so at a time it should be modified by only one thread
+- Processes are independant of each other.
+- threads are lighweight. Processes require many resources. 
+------------------------------------------------------------
+Scheduling in OS:- 
+- First come first serve.
+- Shortest job first
+- Round robin
+- Priority scheduling
+- Multilevel queue scheduling
+------------------------------------------------------------
+ Semaphores :- 
+- It is a variable that prevents multiple processes from accessing common resource at the same time.
+------------------------------------------------------------
+-Semaphore vs Mutex
+Mutex can be released only by thread that had acquired it, while you can signal semaphore from any other thread (or process), 
+so semaphores are more suitable for some synchronization problems like producer-consumer.
+- A semaphore is a generalised mutex
+------------------------------------------------------------
+What are Real time operating systems? 
+- OS intended to serve real time application data as it comes. 
+- they do not have buffering delay.
+	They require :- 
+- Multitasking
+- Process threads that can be prioritized
+- A sufficient number of interrupt levels
+------------------------------------------------------------
+Life cycle of a thread
+- New
+- Runnable
+- Running
+- Blocked
+- Terminated 
+------------------------------------------------------------ 
+Race condition :- 
+- both threads are "racing" to access/change the data.
+- A race condition occurs when two or more threads can access shared data and they try to change it at the same time. 
+Because the thread scheduling algorithm can swap between threads at any time, 
+you don't know the order in which the threads will attempt to access the shared data. 
+- Therefore, the result of the change in data is dependent on the thread scheduling algorithm, 
+------------------------------------------------------------ 
+Serialisability :-
+- lets say A and B are two concurrent transactions or processes.
+- a schedule of A & B is serialisable only if it has same effect as executing A,B or B,A
+------------------------------------------------------------ 
+monitor vs semaphores?
+- Monitor is an object designed to be accessed from multiple threads. 
+The object will enforse the lock so that only one person will be using at a time.
+
+- Semaphore is basically a counter variable, if it is positive and thread tries to use it a thread is allowed and counter is decremented.
+- If the counter is already zero the thread has to wait till the counter becomes positive.
+- useful for scenarios such as producer consumer problem.
+
+Analogy :- 
+Monitor :- Changing room :- Only one person can go in , lock will be applied, when he comes out another person can go in. 
+Bike hire :- there n no of bikes, if positive bikes available, bike will be given to a person if not he will have to wait.
+			The bike can be returned by anybody not necessary the same person who has taken it.
+
+------------------------------------------------------------ 
+Synchronized example :- 
+    class Counter
+      {
+            private int count = 0;
+            public void synchronized Increment() {
+                int n = count;
+                count = n+1;
+            }
+      } // use synchronised keyword before method name. now only one thread can access it at a time.
+	  
+------------------------------------------------------------ 
+
+- The co-ordination is done using  the Object's wait() and notify or notifyAll() methods.
+- The wait() method suspends the calling thread and temporarily releases ownership of the monitor 
+(so it allows other threads to acquire the monitor). 
+The suspended thread that called wait() wakes up only when another thread calls notify() or notifyAll() on that object.
+
+- The notifyAll() method wakes up all threads waiting on the object in question. 
+The awakened threads compete for the monitor. One thread gets it, and the others go back to waiting.
+
+- The notify() method arbitrarily wakes up one of the threads waiting on the object in question.
+------------------------------------------------------------ 

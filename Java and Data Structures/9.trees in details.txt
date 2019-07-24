@@ -1,0 +1,252 @@
+Trees
+
+- no of lead nodes is always 1 more than , number of nodes with 2 children
+- DFS vs BFS
+
+time ?
+- both required O(n) time n-> no of nodes
+
+Space
+- bfs uses queue to store node in level
+- dfs uses stack to store recursion calls plus recursion has extra overhead
+- if tree is balanced space required for bfs is more ! , if tree is skewed space required for stack is more.
+
+when to choose what
+- when result expected is close to root , choose bfs
+- when result expected is close to leaves, choose dfs
+-----------------------------------------------------------------
+Applications of tree :- 
+- want to store hierarchical data
+- insertion/deletion faster than arrays and slower than ll
+- search faster than ll and slower than arrays
+- search operation in bst is of the order of O(h) where h is height, with n nodes , it is nothing but o(log n)
+many more
+-----------------------------------------------------------------
+if tree is foldable :-
+
+ boolean IsFoldable(Node node)  
+    { 
+        if (node == null) 
+            return true; 
+   
+        return IsFoldableUtil(node.left, node.right); 
+    } 
+   
+    /* A utility function that checks if trees with roots as n1 and n2 
+     are mirror of each other */
+    boolean IsFoldableUtil(Node n1, Node n2)  
+    { 
+          
+        /* If both left and right subtrees are NULL, 
+         then return true */
+        if (n1 == null && n2 == null) 
+            return true; 
+   
+        /* If one of the trees is NULL and other is not, 
+         then return false */
+        if (n1 == null || n2 == null) 
+            return false; 
+   
+        /* Otherwise check if left and right subtrees are mirrors of 
+         their counterparts */
+        return IsFoldableUtil(n1.left, n2.right) 
+                && IsFoldableUtil(n1.right, n2.left); 
+    } 
+------------------------------------------------------------------------
+if tree is mirror immage of itself :- 
+
+    Node root; 
+   
+    // returns true if trees with roots as root1 and root2 are mirror 
+    boolean isMirror(Node node1, Node node2)  
+    { 
+        // if both trees are empty, then they are mirror image 
+        if (node1 == null && node2 == null) 
+            return true; 
+   
+        // For two trees to be mirror images, the following three 
+        // conditions must be true 
+        // 1 - Their root node's key must be same 
+        // 2 - left subtree of left tree and right subtree 
+        //      of right tree have to be mirror images 
+        // 3 - right subtree of left tree and left subtree 
+        //      of right tree have to be mirror images 
+        if (node1 != null && node2 != null && node1.key == node2.key) 
+            return (isMirror(node1.left, node2.right) 
+                    && isMirror(node1.right, node2.left)); 
+   
+        // if neither of the above conditions is true then 
+        // root1 and root2 are mirror images 
+        return false; 
+    } 
+   
+    // returns true if the tree is symmetric i.e 
+    // mirror image of itself 
+    boolean isSymmetric(Node node)  
+    { 
+        // check if tree is mirror of itself 
+        return isMirror(root, root); 
+    } 
+   
+-------------------------------------------------------------------------------
+create mirror image of a tree // in place
+
+Node mirror(Node node) 
+    { 
+        if (node == null) 
+            return node; 
+  
+        /* do the subtrees */
+        Node left = mirror(node.left); 
+        Node right = mirror(node.right); 
+  
+        /* swap the left and right pointers */
+        node.left = right; 
+        node.right = left; 
+  
+        return node; 
+    } 
+------------------------------------------------------------------------------	
+235 Lowest Common Ancestor of a Binary Search Tree 37.7% Easy
+Just walk down from the whole tree's root as long as both p and q are in the same subtree (meaning their values are both smaller or both larger than root's). 
+This walks straight from the root to the LCA, not looking at the rest of the tree, so it's pretty much as fast as it gets. 
+
+public TreeNode lowestCommonAncestor(TreeNode root, TreeNode p, TreeNode q) {
+    while ((root.val - p.val) * (root.val - q.val) > 0)
+        root = p.val < root.val ? root.left : root.right;
+    return root;
+}
+
+(in case of overflow, I'd do (root.val - (long)p.val) * (root.val - (long)q.val))
+------------------------------------------------------------------------------	
+98 Validate Binary Search Tree 20.9% Medium
+
+class Solution {
+    
+    private boolean validateBST(TreeNode root, long lower, long higher){
+        if(root == null)
+            return true;
+        
+        if(root.val < higher && root.val > lower){
+            return (validateBST(root.left,lower,root.val) && validateBST(root.right,root.val,higher));
+        }
+        return false;
+    }
+   
+    
+    public boolean isValidBST(TreeNode root) {
+        if(root == null)
+            return true;
+        
+        return validateBST(root,Long.MIN_VALUE,Long.MAX_VALUE);
+    }
+}
+
+P>S here Long.MAX_VALUE and Long.MIN_VALUE are considered , to make sure INnt.MAX_VALUE and MIN_VALUE are valid inputs for root !
+----------------------------------------------------
+Print each level of tree in separate line :-
+// Iterative method to do level order traversal line by line 
+    static void printLevelOrder(Node root) 
+    { 
+        // Base Case 
+        if(root == null) 
+            return; 
+          
+        // Create an empty queue for level order tarversal 
+        Queue<Node> q =new LinkedList<Node>(); 
+          
+        // Enqueue Root and initialize height 
+        q.add(root); 
+          
+          
+        while(true) 
+        { 
+              
+            // nodeCount (queue size) indicates number of nodes 
+            // at current level. 
+            int nodeCount = q.size(); 
+            if(nodeCount == 0) 
+                break; 
+              
+            // Dequeue all nodes of current level and Enqueue all 
+            // nodes of next level 
+            while(nodeCount > 0) 
+            { 
+                Node node = q.peek(); 
+                System.out.print(node.data + " "); 
+                q.remove(); 
+                if(node.left != null) 
+                    q.add(node.left); 
+                if(node.right != null) 
+                    q.add(node.right); 
+                nodeCount--; 
+            } 
+            System.out.println(); 
+        } 
+    } 
+---------------------------------------------------------------------	
+1. Route Between Nodes: Given a directed graph, design an algorithm to find out whether there is a
+route between two nodes. 
+=> Just a DFS or BFS. 
+
+2. Minimal Tree: Given a sorted (increasing order) array with unique integer elements, write an
+algorithm to create a binary search tree with minimal height. 
+
+TreeNode minimalBSTTree (int []a)
+{
+	return minimalBSTTree(int []a,0,a.length-1)
+}
+
+TreeNode minimalBSTTree (int []a,int start, int end)
+{
+	int mid=0;
+	if(end<start)
+	return;
+	
+	mid=start+end/2;
+	Treenode n= new Treenode(a[mid]); // this step u missed!
+	n.left=minimalBSTTree(a,start,mid);
+	n.right=minimalBSTTree(a,mid+1,end);
+	
+	return 0;
+}
+	
+	
+	
+}
+==================================
+5] List of Depths: Given a binary tree, design an algorithm which creates a linked list of all the nodes
+at each depth (e.g., if you have a tree with depth D, you'll have D linked lists).
+---------------------------
+199 Binary Tree Right Side View 34.3% Medium
+The core idea of this algorithm:
+
+1.Each depth of the tree only select one node.
+2. View depth is current size of result list.
+
+Here is the code:
+public class Solution {
+    public List<Integer> rightSideView(TreeNode root) {
+        List<Integer> result = new ArrayList<Integer>();
+        rightView(root, result, 0);
+        return result;
+    }
+    
+    public void rightView(TreeNode curr, List<Integer> result, int currDepth){
+        if(curr == null){
+            return;
+        }
+        if(currDepth == result.size()){
+            result.add(curr.val);
+        }
+        
+        rightView(curr.right, result, currDepth + 1);
+        rightView(curr.left, result, currDepth + 1);
+        
+    }
+}
+
+If the currDepth is equal to the result size, then we know we have not yet added the "right-most" TreeNode yet.
+Once we add the TreeNode for the current level, the result size will be greater than currDepth and we know we will not need to add anymore nodes for the current level.
+
+if you are supposed to display the left view , call curr.left first ! 

@@ -1,0 +1,50 @@
+Domains for system design
+
+-- think on these --
+Abstraction. It’s a very important topic for system design interview. You should be clear about how to abstract a system, what is visible and invisible from other components, and what is the logic behind it. Object oriented programming is also important to know.
+Database. You should be clear about those basic concepts like relational database. Knowing about No-SQL might be a plus depends on your level (new grads or experienced engineers).
+Network. You should be able to explain clearly what happened when you type “gainlo.co” in your browser, things like DNS lookup, HTTP request should be clear.
+Concurrency. It will be great if you can recognize concurrency issue in a system and tell the interviewer how to solve it. Sometimes this topic can be very hard, but knowing about basic concepts like race condition, dead lock is the bottom line.
+Operating system. Sometimes your discussion with the interviewer can go very deeply and at this point it’s better to know how OS works in the low level.
+Machine learning (optional). You don’t need to be an expert, but again some basic concepts like feature selection, how ML algorithm works in general are better to be familiar with.
+
+-- then follow -- 
+4. Top-down + modularization
+
+e.g Youtube
+discuss front end and network and then backend
+user requests data backends queries videos and returns the videos
+
+then go in detail if required
+
+-- then for each module ---
+discuss pros and cons of approaches you are willing to take in terms of space and time and so on
+
+
+
+1. Youtube :- 
+
+basic functionality 
+go to url
+ -> home page
+ types in search box
+ gets results related to video
+ clicks on video watches it
+ likes and comments
+ ----------
+ more videos like this -> suggestions
+ 
+ search results -> scroll down we will have next set of videos. 
+--------------
+
+database model, video/image storage, scalability, recommendation, security and so on
+
+for videos - cdn , content delivery network, scalability is taken care by cdn
+
+popular videos save on cdn less popular save efficiently based on region.
+
+cache - 
+
+security - view hacking of video, sql injections
+
+

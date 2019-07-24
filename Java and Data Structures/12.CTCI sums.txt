@@ -1,0 +1,75 @@
+Cracking the code interview sums :- 
+
+1] String questions checklist 
+
+- empty ?
+- Is it case sensitive?
+- whiteSpace is significatnt?
+- ASCII string or Unicode string 
+  ASCII has 128 unique characters - 0-127
+  Unicode has less than 2^21 characters.
+  ASCII is subset of UNICODE and characters have same meaning in both.
+- use string length = 128 for unique characters
+- 256 in case of extended ASCII
+- int val=(int) str.charAt(i) -> Gives ASCII value.
+- is sorting and solving a better option?
+- [A-Z] -> [65-90] , [a-z]-> [97-122]
+- if u r using a LL , check if u can use "Runner technique"
+
+2] Number array :- 
+1. negative numbers ? 
+2. is array sorted
+3. are there duplicates
+
+
+Questions :- 
+1. Is string unique in characters ?
+- length > 128 -> nop
+- int array[128] -> set flag true , if already true -> not unique. 
+
+2. if String A is permutation of B
+I) Sort two strings and then check if equal?
+II) create array of 128 characters maintaining the count, compare the array. 
+
+3. URLify: Input: "Mr John Smith ", 13 ; Output: "Mr%20John%20Smith"
+- Count no of spaces, *3 , whenever space , index+1 = % , +2=2 , +3=0
+
+4. Palindrome Permutation ( check if given string is a permutaion of palindrome )
+- atmost 1 character can have odd count. 
+- Read solution on #206.
+
+5. One edit away
+- check length if same , maintian counter for change, should not exceed 1. 
+- if not same , should differ by only 1, whenever change , increment the higher string by 1
+- see modular implementation ! very neat !!
+
+6. Run length encoding : aabccc -> a2b1c3
+- array of characters , maintain character and count , convert it to string at the end.
+- use a stringBuilder ( see solution )
+
+7. String Rotation :- check if "waterbottle" is a rotation of"erbottlewat" using only one call to isSubstring. 
+- concat waterbottle with itself , now give one call 
+
+8. Rotate matrix and Zero matrix :- 2 boring matrix sums, do later.  
+
+9. 
+
+===============================
+
+3] Stacks and queues
+
+1. Describe how u could use one array to implement 3 stacks.
+=> n/3 , 2n/3 , n 
+Or
+=> Implement a circular stack ??
+
+2. Stack min in order of one? 
+=> 
+2 stacks,
+1 min stack other ordinary stack.
+
+3. set of Stacks , if stack reaches a threashold insert into new stack, pop and push operations should be same. 
+=> Arraylist<Stack> stacks new Arraylist<Stack>();
+follow up :- Up: Implement popAt(int index) 
+
+4. total 6 questions getting bored. will study later.

@@ -1,0 +1,168 @@
+To Do :- 
+CTCI :- 
+- system design and scalability chapter !
+- object oriented design !
+- that website that Anusha shared.
+------------------------------------------
+
+1. Given an array with 2d points, return the N-closest to the origin
+Given an array of sorted characters and a target character, find the closest character from array.
+
+2. Reverse pairs within a linked list. For e.g. a -> b -> c should be reversed like b -> a -> c and a->b->c->d could be reversed like b->a->d->c.  
+/* Recursive function to pairwise swap elements of a linked list */
+void pairWiseSwap(struct node *head) 
+{ 
+  /* There must be at-least two nodes in the list */
+  if (head != NULL && head->next != NULL) 
+  { 
+      /* Swap the node's data with data of next node */
+      swap(&head->data, &head->next->data); 
+     
+      /* Call pairWiseSwap() for rest of the list */
+      pairWiseSwap(head->next->next); 
+  }   
+} 
+---------------------
+iterative :- 
+void pairWiseSwap() 
+    { 
+        Node temp = head; 
+  
+        /* Traverse only till there are atleast 2 nodes left */
+        while (temp != null && temp.next != null) { 
+  
+            /* Swap the data */
+            int k = temp.data; 
+            temp.data = temp.next.data; 
+            temp.next.data = k; 
+            temp = temp.next.next; 
+         } 
+    } 
+---------------------------------------------------------------
+
+3. given arrays of string find common characters, include duplicates
+--> if not common then use intersection of hashset.
+--> if common is required use two hashmaps, one for previous and one for common, at the end display contents of hashmap. 
+---------------------------------------------------------------
+
+4. list all dependencies of a given package, each package has dependencies, each package can have multiple dependencies
+--> BFS ?
+---------------------------------------------------------------
+6. customer review is big, couple lines ,can scroll up and down, give the word with maximum count in each display
+-> max heap. ( + hash map ?)
+---------------------------------------------------------------
+7. lru cache implement
+---------------------------------------------------------------
+8. sentence's most occurred alphabet in a stream ?
+-> hashmap + heap
+---------------------------------------------------------------
+
+9. copy linked list with random pointer
+---------------------------------------------------------------
+10 copy stream of data in disk
+-> Need to implement this. insert data in binary search tree, and then create array ( of nodes ) 
+---------------------------------------------------------------
+11 exception handling for downloading file. 
+-> need to study this too
+--------------------------------------------------------------
+jobs -> 5 minutes, 2 minutes, minimum time maximum jobs
+how ? -> sort 
+1 - 1 karun yetayet
+==============================================================================
+Design questions :- 
+1. Deck of cards
+2. locker 3 types - small, medium and average , check in and check out methods oop and implement
+3. twitter
+4. uber
+5. youtube
+6. online store
+7. parking lot.
+8. design a ticket selling website with a demand based price.
+--------------------------
+ctci -> pudhe mage
+------------------
+ -> min heap kay asta , how do you use in java
+hashtable , hashmap ds vagaire
+-------------------
+what all you have done, 
+how do you work in office?
+amazon principles ?
+toughest 
+-------------------
+
+CTCI :-
+17 chapters
+Core chapters 
+1 through 5 ; 7 through 10..
+1. arrays and strings
+2. linked list
+3. stacks and queues
+4. trees and graphs
+5. bit manipulation
+
+7. OO design
+8. recursion and dynamic programming
+9. System design and scalability
+10. Sorting and searching
+
+database chapters
+java chapters
+--------------------
+
+Anusha :-
+- half hr break ? during interview --> taken
+- expected compensation -> 130k
+- white board or laptop ? -> laptop
+
+
+Ami :-
+- joining linked list without using extra space.
+- file data -> insert into a tree
+- system -> come up with error messages and edge cases to break the system and exist cleanly
+	exception handling.
+- behavioral interview lot of focus ! on leadership principle
+conflict situation
+- how did you handle the failure.
+based on your example, there will be further question prepare !!
+project and design question
+-- design twitter, parking lot -> keep on changing the requirement, whats app(messaging app),
+complete behavioral
+ - where u came up with a creative solution.
+ - were not able to finish and what did you handle it, what did you learn from it.
+ - different solutions. how did you convince you were right
+ - you were in charge, someone was not doing there share of work, how did you handle.
+ - one thing that you brought to the table, innovative solution you brought
+	every time they expect an example.
+-----------------------------------------------------------------------------------------------
+	focus
+	initialization
+	1. array
+	2. list
+	3, hashset 
+	4. map
+--------------------
+	array of 256 characters or 26 characters , boolean or count array
+	-----------------------
+	Prep Talk
+trees 
+graphs
+algo ( dfs + bfs )
+dp
+Maths
+3 coding rounds
+1 behavioral rounds
+star questions
+rest explained by Anusha
+design principles and think about the scenarios 
+1 hour lunch is not the interview
+-------------------------------
+continuous stream of data give word with maximum count
+readline,
+
+heap of id and value, change and put it again
+
+https://www.geeksforgeeks.org/find-the-k-most-frequent-words-from-a-file/
+
+binary search
+quick sort
+merge sort

@@ -1,0 +1,97 @@
+476. complement of a number :- 
+-----
+101 -> 010
+
+public class Solution {
+    public int findComplement(int num) {
+        int mask = (Integer.highestOneBit(num) << 1) - 1;
+        num = ~num;
+        return num & mask;
+    }
+}
+
+// Remember mask creation. here mask = 111
+==============================
+
+412. FizzBuzz ! ( if %3 -> Fizz; %5 -> Buzz , %3 & %5 -> FizzBuzz. 
+------
+List <String> a = new List <>(); 
+a.add(String.valueOf(i))  // integer to string. 
+
+without using % :- 
+for(int i=1,fizz=0,buzz=0;i<=n ;i++){
+            fizz++;
+            buzz++;
+            if(fizz==3 && buzz==5){
+                ret.add("FizzBuzz");
+                fizz=0;
+                buzz=0;
+            }else if(fizz==3){
+                ret.add("Fizz");
+                fizz=0;
+            }else if(buzz==5){
+                ret.add("Buzz");
+                buzz=0;
+            }else{
+                ret.add(String.valueOf(i));
+            }
+ }
+
+or -> %15 -> fizzbuzz ; %3 -> Fizz , %5 -> Buzz. 
+===========================
+
+496. Next greater number. each element in subset array, find greater number in superarray to the right.
+
+loop subarray 
+for each number locate in super array and return when u get the bigger number on right ; 
+
+best Approach :- 
+decreasing sequence , greater number keep poping till number is greater than next greater number.
+
+public int[] nextGreaterElement(int[] findNums, int[] nums) {
+        Map<Integer, Integer> map = new HashMap<>(); // map from x to next greater element of x
+        Stack<Integer> stack = new Stack<>();
+        for (int num : nums) {
+            while (!stack.isEmpty() && stack.peek() < num)
+                map.put(stack.pop(), num);
+            stack.push(num);
+        }   
+        for (int i = 0; i < findNums.length; i++)
+            findNums[i] = map.getOrDefault(findNums[i], -1);  // very useful line !
+        return findNums;
+    }
+===========================
+
+463. Island perimeter - 
+
+========================
+
+485. Max Consecutive Ones
+maxOnes = Math.max(maxOnes, newOnes);  
+========================
+520. Detect proper usage of Capital
+Input: "USA"
+Output: True 
+
+Input: "FlaG"
+Output: False
+
+Input: "Flag"
+Output: True
+-------
+A-Z= 65 -90
+a-z= 97-122
+int val=(int) str.charAt(i) -> Gives ASCII value.
+
+=> public boolean detectCapitalUse(String word) {
+    return word.matches("[A-Z]*|[A-Z]?[a-z]*");
+}
+OR
+public boolean detectCapitalUse(String word) {
+        if (word.length() < 2) return true;
+        if (word.toUpperCase().equals(word)) return true;
+        if (word.substring(1).toLowerCase().equals(word.substring(1))) return true;
+        return false;
+}
+============================
+

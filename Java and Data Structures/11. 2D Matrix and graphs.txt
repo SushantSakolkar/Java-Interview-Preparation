@@ -1,0 +1,406 @@
+48 Rotate Image 34.6% Medium
+
+Clockwise rotaion -> 
+	Transpose around diagonal then reverse left to right.
+	
+	class Solution {
+    public void rotate(int[][] matrix) {
+        
+        //validation length checks
+        if(matrix.length>1) {
+        
+            int temp=0;
+            //Transpose
+            for(int i=0;i<matrix.length;i++) {
+                for(int j=i;j<matrix.length;j++) {
+                    if(i==j)
+                        continue;
+
+                    temp = matrix[i][j];
+                    matrix[i][j]=matrix[j][i];
+                    matrix[j][i]=temp;
+                }
+            }   
+
+            // Reverse
+            for(int i=0;i<matrix.length;i++) {
+                for(int j=0; j<Math.ceil(matrix.length/2);j++){
+                    temp = matrix[i][j];
+                    matrix[i][j] = matrix[i][matrix.length-1-j];
+                    matrix[i][matrix.length-1-j]= temp;
+                }    
+            }
+        }
+    }
+}
+
+anticlockwise -> 
+	reverse left to right then transpose around newly formed diagonal. 
+	
+---------------------------------------------------------------------------
+240 Search a 2D Matrix II 34.4% Medium
+ Q :- n*n matrix, sorted left to right and sorted top to bottom, search for the given value
+
+We start search the matrix from top right corner, initialize the current position to top right corner, 
+if the target is greater than the value in current position, then the target can not be in entire row of current position because the row is sorted, 
+if the target is less than the value in current position, then the target can not in the entire column because the column is sorted too. 
+We can rule out one row or one column each time, so the time complexity is O(m+n).
+
+public class Solution {
+    public boolean searchMatrix(int[][] matrix, int target) {
+        if(matrix == null || matrix.length < 1 || matrix[0].length <1) {
+            return false;
+        }
+        int col = matrix[0].length-1;
+        int row = 0;
+        while(col >= 0 && row <= matrix.length-1) {
+            if(target == matrix[row][col]) {
+                return true;
+            } else if(target < matrix[row][col]) {
+                col--;
+            } else if(target > matrix[row][col]) {
+                row++;
+            }
+        }
+        return false;
+    }
+}
+----------------------------------------------------------------------------------
+		2 D Matrix problems !
+		
+63. find uniqe paths from source to destination in presence of obstacles
+
+----------- easy solution , but lot of space.
+class Solution {
+    public int uniquePathsWithObstacles(int[][] obstacleGrid) {
+        int rows = obstacleGrid.length;
+        int cols = obstacleGrid[0].length;
+        int[][] path = new int[rows][cols];  // 2d array storing paths at each cell
+		
+		// this loop initiates first column which will be used as a base.
+		// if while going down you find obstacle, mark everything zero from that cell onwards.
+        for (int row = 0; row < rows; row++) {
+            if (obstacleGrid[row][0] == 1) {
+                while (row < rows) {
+                    path[row][0] = 0;
+                    row++;
+                }
+            } else {
+                path[row][0] = 1;
+            }
+        }
+
+		//this loop initiates first row, which will be used as a base for future calcualtions
+		// if while going right you find obstacle, mark everything zero from that cell onwards !
+        for (int col = 0; col < cols; col++) {
+            if (obstacleGrid[0][col] == 1) {
+                while (col < cols) {
+                    path[0][col] = 0;
+                    col++;
+                }
+            } else {
+                path[0][col] = 1;
+            }
+        }
+
+		// by now we have top row and left most column ready now use them in future references
+		// if obstacle found in between, put it as zero or add left + top cell and you are done.
+		
+        for (int row = 1; row < rows; row++) {
+            for (int col = 1; col < cols; col++) {
+                if (obstacleGrid[row][col] == 0) {
+                    path[row][col] = path[row - 1][col] + path[row][col - 1];
+                } else path[row][col] = 0;
+            }
+        }
+		
+		// return the destination cell. 
+        return path[rows - 1][cols - 1];
+    }
+}
+
+Solution 2 :- with less space complexity :- 
+
+public int uniquePathsWithObstacles(int[][] obstacleGrid) {
+    int width = obstacleGrid[0].length;
+    int[] dp = new int[width];
+    dp[0] = 1;
+    for (int[] row : obstacleGrid) {
+        for (int j = 0; j < width; j++) {
+            if (row[j] == 1)
+                dp[j] = 0;
+            else if (j > 0)
+                dp[j] += dp[j - 1];
+        }
+    }
+    return dp[width - 1];
+}
+
+here is my understanding:
+for every row in obstacleGrid , every element(except the 1st one) of dp inherits the a value from "old" dp, in the same location. It means that new point will inherits the paths passing the above point.
+then the new point will take in the paths come from its left.
+if the value of the point is 1. no path can pass it so new dp will be 0.
+
+I still have a question:
+why the value of dp[0] is always 1?
+= > I had this confusion too. But when u take a second look, inside the loop, if row[j]== 1, 
+the dp[j] will be updated to 0. So if j == 0, the dp[0] will be updated as well.
+-----------------------------------------------------------------------------
+200. Number of islands :-
+
+[1 0 1 1]
+[0 1 1 0]
+[0 0 0 0]
+[1 0 1 0]  -> 4 
+
+    public int numIslands(char[][] grid) {
+        int islands = 0;
+        for (int i = 0; i < grid.length; i++) {
+            for (int j = 0; j < grid[i].length; j++) {
+                if (grid[i][j] == '1') {
+                    dfsMark(grid, i, j);
+                    islands++;
+                }
+            }
+        }
+        return islands;
+    }
+    
+    private void dfsMark(char[][] grid, int i, int j) {
+        if (i < 0 || i >= grid.length || j < 0 || j >= grid[i].length) return;
+        if (grid[i][j] != '1') return;
+        
+        grid[i][j] = 'X';
+        dfsMark(grid, i, j + 1);
+        dfsMark(grid, i + 1, j);
+        dfsMark(grid, i, j - 1);
+        dfsMark(grid, i - 1, j);
+    }
+-------------------------------------------------------------------------------------------
+- reach from source co-ordinate to taret co-ordinate in 2d matrix, 
+- Matrix has 1's and 0's only valid path is 1'same
+
+BFS ----------------
+import java.util.ArrayDeque;
+import java.util.Queue;
+
+// queue node used in BFS
+class Node
+{
+	// (x, y) represents matrix cell coordinates
+	// dist represent its minimum distance from the source
+	int x, y, dist;
+
+	Node(int x, int y, int dist) {
+		this.x = x;
+		this.y = y;
+		this.dist = dist;
+	}
+};
+
+class Util
+{
+	// M x N matrix
+	private static final int M = 10;
+	private static final int N = 10;
+
+	// Below arrays details all 4 possible movements from a cell
+	private static final int row[] = { -1, 0, 0, 1 };
+	private static final int col[] = { 0, -1, 1, 0 };
+
+	// Function to check if it is possible to go to position (row, col)
+	// from current position. The function returns false if (row, col)
+	// is not a valid position or has value 0 or it is already visited
+	private static boolean isValid(int mat[][], boolean visited[][],
+													int row, int col)
+	{
+		return (row >= 0) && (row < M) && (col >= 0) && (col < N)
+					   && mat[row][col] == 1 && !visited[row][col];
+	}
+
+	// Find Shortest Possible Route in a matrix mat from source
+	// cell (i, j) to destination cell (x, y)
+	private static void BFS(int mat[][], int i, int j, int x, int y)
+	{
+		// construct a matrix to keep track of visited cells
+		boolean[][] visited = new boolean[M][N];
+
+		// create an empty queue
+		Queue<Node> q = new ArrayDeque<>();
+
+		// mark source cell as visited and enqueue the source node
+		visited[i][j] = true;
+		q.add(new Node(i, j, 0));
+
+		// stores length of longest path from source to destination
+		int min_dist = Integer.MAX_VALUE;
+
+		// run till queue is not empty
+		while (!q.isEmpty())
+		{
+			// pop front node from queue and process it
+			Node node = q.poll();
+
+			// (i, j) represents current cell and dist stores its
+			// minimum distance from the source
+			i = node.x;
+			j = node.y;
+			int dist = node.dist;
+
+			// if destination is found, update min_dist and stop
+			if (i == x && j == y)
+			{
+				min_dist = dist;
+				break;
+			}
+
+			// check for all 4 possible movements from current cell
+			// and enqueue each valid movement
+			for (int k = 0; k < 4; k++)
+			{
+				// check if it is possible to go to position
+				// (i + row[k], j + col[k]) from current position
+				if (isValid(mat, visited, i + row[k], j + col[k]))
+				{
+					// mark next cell as visited and enqueue it
+					visited[i + row[k]][j + col[k]] = true;
+					q.add(new Node(i + row[k], j + col[k], dist + 1));
+				}
+			}
+		}
+
+		if (min_dist != Integer.MAX_VALUE) {
+			System.out.print("The shortest path from source to destination "
+							+ "has length " + min_dist);
+		}
+		else {
+			System.out.print("Destination can't be reached from source");
+		}
+	}
+
+	// Shortest path in a Maze
+	public static void main(String[] args)
+	{
+		// input maze
+		int[][] mat =
+		{
+			{ 1, 1, 1, 1, 1, 0, 0, 1, 1, 1 },
+			{ 0, 1, 1, 1, 1, 1, 0, 1, 0, 1 },
+			{ 0, 0, 1, 0, 1, 1, 1, 0, 0, 1 },
+			{ 1, 0, 1, 1, 1, 0, 1, 1, 0, 1 },
+			{ 0, 0, 0, 1, 0, 0, 0, 1, 0, 1 },
+			{ 1, 0, 1, 1, 1, 0, 0, 1, 1, 0 },
+			{ 0, 0, 0, 0, 1, 0, 0, 1, 0, 1 },
+			{ 0, 1, 1, 1, 1, 1, 1, 1, 0, 0 },
+			{ 1, 1, 1, 1, 1, 0, 0, 1, 1, 1 },
+			{ 0, 0, 1, 0, 0, 1, 1, 0, 0, 1 },
+		};
+
+		// Find shortest path from source (0, 0) to
+		// destination (7, 5)
+		BFS(mat, 0, 0, 7, 5);
+	}
+}
+-------------------------------------------------------
+DFS :-
+
+class ShortestPath
+{
+	// M x N matrix
+	private static final int M = 10;
+	private static final int N = 10;
+
+	// Check if it is possible to go to (x, y) from current position. The
+	// function returns false if the cell has value 0 or already visited
+	private static boolean isSafe(int mat[][], int visited[][], int x, int y)
+	{
+		return !(mat[x][y] == 0 || visited[x][y] != 0);
+	}
+
+	// if not a valid position, return false
+	private static boolean isValid(int x, int y)
+	{
+		return (x < M && y < N && x >= 0 && y >= 0);
+	}
+
+	// Find Shortest Possible Route in a Matrix mat from source cell (0, 0)
+	// to destination cell (x, y)
+
+	// 'min_dist' stores length of longest path from source to destination
+	// found so far and 'dist' maintains length of path from source cell to
+	// the current cell (i, j)
+
+	public static int findShortestPath(int mat[][], int visited[][],
+					 int i, int j, int x, int y, int min_dist, int dist)
+	{
+		// if destination is found, update min_dist
+		if (i == x && j == y)
+		{
+			return Integer.min(dist, min_dist);
+		}
+
+		// set (i, j) cell as visited
+		visited[i][j] = 1;
+
+		// go to bottom cell
+		if (isValid(i + 1, j) && isSafe(mat, visited, i + 1, j)) {
+			min_dist = findShortestPath(mat, visited, i + 1, j, x, y,
+										min_dist, dist + 1);
+		}
+
+		// go to right cell
+		if (isValid(i, j + 1) && isSafe(mat, visited, i, j + 1)) {
+			min_dist = findShortestPath(mat, visited, i, j + 1, x, y,
+										min_dist, dist + 1);
+		}
+
+		// go to top cell
+		if (isValid(i - 1, j) && isSafe(mat, visited, i - 1, j)) {
+			min_dist = findShortestPath(mat, visited, i - 1, j, x, y,
+										min_dist, dist + 1);
+		}
+
+		// go to left cell
+		if (isValid(i, j - 1) && isSafe(mat, visited, i, j - 1)) {
+			min_dist = findShortestPath(mat, visited, i, j - 1, x, y,
+										min_dist, dist + 1);
+		}
+
+		// Backtrack - Remove (i, j) from visited matrix
+		visited[i][j] = 0;
+
+		return min_dist;
+	}
+
+	public static void main(String[] args)
+	{
+		int mat[][] =
+		{
+				{ 1, 1, 1, 1, 1, 0, 0, 1, 1, 1 },
+				{ 0, 1, 1, 1, 1, 1, 0, 1, 0, 1 },
+				{ 0, 0, 1, 0, 1, 1, 1, 0, 0, 1 },
+				{ 1, 0, 1, 1, 1, 0, 1, 1, 0, 1 },
+				{ 0, 0, 0, 1, 0, 0, 0, 1, 0, 1 },
+				{ 1, 0, 1, 1, 1, 0, 0, 1, 1, 0 },
+				{ 0, 0, 0, 0, 1, 0, 0, 1, 0, 1 },
+				{ 0, 1, 1, 1, 1, 1, 1, 1, 0, 0 },
+				{ 1, 1, 1, 1, 1, 0, 0, 1, 1, 1 },
+				{ 0, 0, 1, 0, 0, 1, 1, 0, 0, 1 },
+		};
+
+		// construct a matrix to keep track of visited cells
+		int[][] visited = new int[M][N];
+
+		int min_dist = findShortestPath(mat, visited, 0, 0, 7, 5,
+										Integer.MAX_VALUE, 0);
+
+		if(min_dist != Integer.MAX_VALUE) {
+			System.out.println("The shortest path from source to destination "
+							  + "has length " + min_dist);
+		}
+		else {
+			System.out.println("Destination can't be reached from source");
+		}
+	}
+}
+--------------------------------------------------------------------------------------------------------------------------

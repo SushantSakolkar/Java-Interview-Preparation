@@ -1,0 +1,208 @@
+Collections :- 
+- collection extends iterable -> so u have iterator. 
+collection base interface methods :- 
+{
+list here
+}
+-----
+interface set<E> extends Collection<E>
+{
+//stores only unique elements.
+}
+-----
+interface list<E> extends Collection<E>
+{
+// here position (index) is important. 
+// additionla methods which deal with index.
+}
+-----
+interface Queue<E> extends Collection<E>
+{
+// items are ordered in the order they are inserted. 
+// 
+}
+-----
+interface Map<K,V> // it does not extend Collection.
+========================================================================================================================
+The Java Collections Framework is a collection of interfaces and classes which helps in storing and processing the data efficiently
+
+If size is fixed go for array, if not go for collections.
+<Integer> here is generic.
+
+collections:- 
+https://www.youtube.com/playlist?list=PLGwb7xZHg-oPmcfRxORRiv5jrUoT0zFLq
+
+Lecture 1:-
+
+collection :- concept.
+Collection :- interface
+Collections :- Class. 
+
+- Collection is an interface -> List(interface) implements collection and -> ArrayList ( is a class) implements list.
+- Collection is an interface -> set(interface) implements collection and -> HashSet ( is a class) implements set.
+- Collection is an interface -> map(interface) implements collection and -> HashMap ( is a class) implements map.
+- Dictionary is an Class & map(interface) -> HashTable ( is a class) extends Dictionary class & implements map.
+
+Collection value = new ArrayList();
+	values.add(5);
+	values.add(10);
+	values.add("sushant");
+	
+i can add anything. 
+
+generics come into picture. !
+
+Collection<Integer> values = new 	Arraylist<Integer>(); 
+now 	values.add("sushant") will give the error !
+---------------------------
+
+List<Integer> values = new ArrayList<>();   // can have duplicate values. but in sequence. 
+set<Integer> values = new HashSet<>();	// unique values but unordered.
+set<Integer> values = new TreeSet<>();  // unique values and get it in sorted format.
+map<Integer,Integer> values = new HashMap<>()  // 	key value pairs
+========================================================================================================================
+collection obj = new ArrayList(); // default size 10  ; arraylist is collection of objects.
+
+//add 
+obj.add(5);	
+obj.add(9);
+obj.add("hi");
+obj.add(5.5);
+
+// print a collection? -> use enhanced for loop. 
+for (Object o : obj) // Object -> java class , o -> instance , : -> in , obj -> our array list).
+{
+	Sop(o);
+}
+
+//remove
+obj.remove("hi");
+------------
+use generic to limit collection to type
+
+collection<Integer> obj = new ArrayList<>(); // no need to specify integer in second bracket.
+
+//to access
+for ( Integer o:obj) //
+========================================================================================================================
+- what if we want to add element at 6th index? in collections cant do that.
+- so we use List !.
+
+	List<Integer> obj = new ArrayList<>();
+- obj.add(6,3) // 6 is index.
+
+- what if we want to sort list ?
+- we will use "Collections" framework.
+=> Collections.sort(obj) ; // it works on List and not Collection!
+========================================================================================================================
+linked list <int> = new linked list? wrong primitive data type??
+- collections do not accept primitive data types.
+- Containers want Objects and primitives don't derive from Object.
+=======================================================================================================================
+java application- dynamic array? arraylist or vector? which one is better?
+
+Arraylist vs Vector :- 
+- Internally both use arrays for implementation.
+- both grow and shrink automatically.
+- both allow duplicate and null values.
+
+difference.
+1. Arraylist -> non synchrnosied. ( multiple threads can work)
+   Vector -> synchronised. ( single thread can work on a vector. )
+  
+2. Resize :- Arrayslist grows by half, vector grows by double.
+
+3. Performance Arralist better as non-synch ; vector poor as thread safe hence gets locked for each thread.
+
+4. fail safe :- arraylist is failsafe ; vectors are not
+
+5. vector should be obsolete, if we want synch , make arraylist synchronised.
+using synchronised keyword arraylist can be made synchronised. 
+
+-----------------------------------------------------------
+dynamic array?
+ we have to create a new array with more size and copy the original array which is costly.
+-----------------------------------------------------------
+- What is best sorting algorithm, its time complexity?
+=> quick sort
+
+=> ll vs array:- 
+array pros:- 
+direct search, fast access
+cons :- 
+fixed size, insertion, deletion costly ( shifting )
+
+LL Pros:- 
+Dynamic Size, Ease of insertion/deletion.
+cons:- 
+no random acces, extra memory space for pointers, 
+-----------------------------------------------------------
+HashMap vs HashTable :- 
+- HashMap is non synchronised and not thread safe , hashTable is thread safe and synchronised
+i.e. hashmap is better for single thread , table is used for multi threading.
+- hashMap ( 1 null key , any number null values) ; table no null keys or values.
+- hashmap uses iterator ; table uses enumerator. 
+- hashmap iterator fails safe; table enumarator not.
+- hashmap is much faster and uses less memory
+- hashtable is subclass of dictionary which is not used anymore so , its better to use hasmap and synchronize externally.
+-----------------------------------------------------------
+Data structures -
+arrays :- 
+good at indexing bad at search , insrtion deletion.
+
+Linked list :- linked node +data
+optimal insertion and deletion. 
+slow at indexing and searching.
+1. Circular LL ( how to detect circle? +1, +2 , 2 nodes start from head. )
+2. Doubly LL
+3. Stack :- MAde with LL, with head as only place for insertion and deletion.
+4. Queue :- MAde with Double LL , adds at head and removes at tail.
+
+Hash table or Hash map:- 
+	Hash functions accept a key and return their value. this is knwon as hashing.
+	- optimise searching, insertion and deletion.
+	- hash collisions? same hashing for two input keys. => use collision handlling.
+
+Binary Tree :-
+		- Tree like DS , every node has at most 2 child left and right.
+		- simple to implement than other ds.
+		
+Binary search Tree :- 
+		- left < root
+		- right > root.
+		- no duplicate nodes.
+		- this is more likely to be used as DS than binary tree.
+
+-----------------------------------------------------------
+- run times for various sorting algorithms
+
+Sorting basics :- 
+1. Merge sort :- recursively divides then merges
+	avg & worst case :- O(nlogn)
+	best O(n)
+	
+2. Quick sort :- divides into half , repeats for left part and sorts then repeats for right part
+	best :- O(n)
+	avd (nlogn)
+	worst (n^2)   // pc favours this algo. faster in practice than many other algo like merge. !
+	
+3. Bubble Sort :- smallest element is bubbled to left in every iteration. Simple to implement but worst complexity.
+	best :- O(n)
+	avg (n^2)
+	worst (n^2)
+	
+in practice Quick sort is best among these three. !!
+		
+-----------------------------------------------------------
+Collections , their iterations and functions.   :- 
+Queue,
+Stack,
+Arraylist
+Vectors,
+Dynamic array
+array
+Graph
+
+- Algorithm for finding GCD (I did not know this at all...), 
+
+

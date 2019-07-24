@@ -1,0 +1,923 @@
+Java :-
+
+Core Java and Mathworks type tricky interview questions.
+
+
+length --- arrays (int[], double[], String[]) ---- to know the length of the arrays.
+length() --- String related Object (String, StringBuilder etc)to know the length of the String
+size() --- Collection Object (ArrayList, Set etc)to know the size of the Collection
+
+bytecode(compiler) -> class loader -> interpeter -> hardware level execute. 
+
+vectors?
+collection methodslike add?
+
+reference :- http://javaconceptoftheday.com/static-members-java/
+Running a java program. :- 
+-  when you start runnning a java program, java command divides allocated memory into two parts – Stack and Heap.
+- the class gets loaded into heap, randomly some memory gets allocated that is called class memory.
+- All static members get loaded into static memory, so first main will get loaded into static memory.
+- static blocks however, are not stored anywhere. they come to stack and get executed. 
+- so if there is static block in main class it will get executed. 
+- then main() method will get called.
+very nyc concept do visit the page. 
+-------------------------------------
+- When you compile a java file, the number of .class files generated will be equal to number of class definitions in it. 
+- One java file should contain only one or zero public class. It should not contain more than one public class.
+- the java file will have a name of the single public class. else it will give compile error. 
+- if there are more than one public classes in java file it will give an error whatever name you keep.
+- If none of the class is public, u can literally name it as "anything.java" 
+- there is no need for main method class to be public. 
+-------------------------------------
+Pre-increment and post increment :- 
+i=0 ; j=i++ ;j=> 0;  //post increment.
+i=0 ; j=++i ;j=> 1;  // pre-increment.
+-------------------------------------
+access specifiers? 
+Visible to the package, the default. No modifiers are needed.
+Visible to the class only (private).
+Visible to the world (public).
+Visible to the package and all subclasses (protected).
+
+            | Class | Package | Subclass | Subclass | World
+            |       |         |(same pkg)|(diff pkg)| 
+————————————+———————+—————————+——————————+——————————+————————
+public      |   +   |    +    |    +     |     +    |   +     
+————————————+———————+—————————+——————————+——————————+————————
+protected   |   +   |    +    |    +     |     +    |   o     
+————————————+———————+—————————+——————————+——————————+————————
+no modifier |   +   |    +    |    +     |     o    |   o
+————————————+———————+—————————+——————————+——————————+————————
+private     |   +   |    o    |    o     |     o    |   o
+
+---------------------------------------------------------------------------
+
+can static method be invoked using object?
+- yes but it is a bad practice. as method belongs to whole class and not object.
+
+nested class need to clear the concept. 
+- search for quora questions for debugging !! 
+ 
+static :- 
+variable, method , block, nested class.
+method :- static method? can not be overriden , concept is not applicable.
+		  static method can be overloaded however.
+
+abstract :- 
+method, classes. 
+class :- can not instantiate, can be subclassed. 
+method:- clas becomes abstract, implement in subclass.
+
+final :- 
+variable, method, class. 
+class :- can not sublass, can instantiate. 
+method :- can not be overriden 
+
+interface :-
+all methods :- abstract
+all variables :- final static.
+
+abstraction :- 
+implemented using two ways
+1. Abstract classes
+2. interfaces.
+---------------------------------------------------------------------------
+this keyword? 
+super keyword?
+
+
+- why is main Static? -? it is called by JVM , we do not require object to call main method.
+- how do you hold memory for an object-> new keyword.
+
+
+- Classes and inheritance. 
+Class :-  a template for creating different objects which defines its properties and behaviors
+Object :- instance of a class. 
+Inheritance :- For reusing the code, extending the parent class to base class.
+---------------------------------------------------------------------------
+
+polymorphism in Java :- 
+Static :- Overloading  ( difference in arguments only ! )
+- Same name different signature. ( number of method arguments, or type of method arguments or order of method argument)
+
+Can we overload static method in Java?
+- Yes, its possible to overload static method in Java. 
+You can declare as many static method with same name as you want until all of them have different method signature
+
+Can you overload a main method? 
+- yes, but JVM will always call the standard public static void main(String args[]) method
+
+----------------------------------------------------------------------------
+Dynamic :- Overrriding through inheritacnce or Overrriding through inerface
+
+see some debugging questions here very important !
+what is method hiding? 
+Can we override static method in java? 
+- No, static methods are resolved at compile time and overriding is a run time phenomenon. ( work around? )
+   - we can define another static method in base class with same name , this will be method hiding. ( contact dikshay) 
+   - Hiding happens when both methods in the pair are static methods
+- Actual method called will depends upon the type of class and not on type of object as its the case with overriding ?? ( contact dikshay)
+
+Can we override a private method in Java?
+No, you cannot override private method in Java. 
+Since private methods are not visible outside the class, 
+they are not available in sub-class hence they cannot be overridden.
+
+Can you override a final method ?
+- No, you cannot override final method in Java. 
+Trying to override final method in subclass will result in compile time error. 
+Actually making a method final is signal to all developer that, 
+this method is not for inheritance and it should be used in its present form
+ 
+can we change argument list of overriden method? 
+- No , signature must be same. 
+
+Super keyword? 
+- If parent and child both have same method and you want to call parent method from child
+you use super keyword. 
+
+Access specifiers in overloading and overriding
+- Overriding method cannot restrict access of overridden method 
+e.g. if original method is public then overriding method must be public, 
+but it can expand access 
+e.g. if original method is protected than overriding method can be protected or public.
+
+Can we override a non-static method as static in Java?
+- No, its not possible to define a non-static method of same name as static method in parent class,
+its compile time error in Java
+- ( better answer)  When one of the two is a static method and the other one is an instance method, Java considers it an error.
+
+Can you override a main method? 
+- No, It is a static method and static methods cant be overriden. 
+
+What happens if we change the arguments of overriding method?
+- If we change the arguments of overriding method, 
+then that method will be treated as overloaded not overridden.
+
+can you override a variable?
+- no only methods are overriden not variables. ( important ! )
+
+What are the rules to be followed while overriding a method?
+- There are 5 main rules you should keep in mind while overriding a method. They are,
+ a) Name of the method must be same as that of super class method.
+ b) Return type of overridden method must be compatible with the method being overridden. 
+ i.e if a method has primitive type as it’s return type then it must be overridden with primitive type only 
+ and if a method has derived type as it’s return type then it must be overridden with same type or it’s sub class types.
+ c) You must not reduce the visibility of a method while overriding.
+ d) You must not change parameter list of a method while overriding.
+ e) You can not increase the scope of exceptions while overriding a method with throws clause.
+--------------------------------------------------------------------------------------------------	
+Constructors :- 
+
+- how dynamic memory works with constructors?
+(discuss with dikshay)
+
+http://www.instanceofjava.com/2015/04/java-interview-questions-on-constructors.html
+// look for last 3 coding questions also in above link. ( discuss all of them) especially 1st? 
+
+- object needs memory, constuctor help in initializing the object.
+-  constructor provides memory to object, when we intialize an object.
+- it is a member function with the same name as class name. 
+- if not defined , there is inbuilt constructor .
+- constructor does not return any value not even void, it allocates memory so there is no return type.
+
+- can constructor be private? yes to avoid method overriding. ( imp ! ) 
+- constructor can use any access specifier (imp !)
+
+- whenever u create an object, constructor gets called. u can not call it. 
+- if you parameterised constructor, there will be no default constructor provide by jvm ! think.
+constructor overloading :- 
+A obj = new A(); or A obj1 = new A(5);
+
+- if a default constructor is made private, would the implementation change and how?
+private constructor :- 
+- means only code within the class can instantiate the object.
+
+- so if private constructor class wants to create a instance of that class we need to define static method within class. (discuss this !)
+- instantiation can then be done within that staic method. ( is this for singleton or for everytnig? )
+- Basically we will declare private constructor in Singleton design pattern.
+
+singleton class :- 
+	- one instance of the class will be created by itself. so we will use private constructor. 
+
+copy constructor :-  ( imp !)
+		- we want exact same copy of the object at any instance
+Class A {
+
+public A( A instance_to_be_copied)
+			{
+				A copied_instance = new A();
+				/* here copy instance values */
+				copied_instance.var1= instance_to_be_copied.var1; // var1 is of primitive type ( int ) or immutable object ( string) //example enemy hit points or enemy name
+				/* this is shaloow copy */
+				
+				copied_instance.var2 = new Var(instance_to_be_copied.var2) // var is not of primitive type so need to create copied object.
+				/* if array of non-primitive type object? ! we will have to create each element of array as new */ !!
+				
+			}
+}	
+
+class B {
+	A obj1 = new A (); // this will call default constructor.
+	A obj2= new A(obj1) // this will call the copy constructor.
+	}
+------------------------------------------------------------------------------------	
+
+Can we override constructor in Java?
+- No, you cannot override constructor in Java because they are not inherited. 
+Remember, we are talking about overriding here not overloading, 
+you can overload construct but you cannot override them. 
+
+- Constructor can be invoked only one time per object creation by using new keyword.
+
+--------------------------------------------------------------------------------------------------	
+ 
+int vs Integer
+- one is primitive and another one is  wrapper.
+- An Integer is a Java object that wraps an int in a Class with lots of nice/helpful methods
+- where you need an int value as an object there you need to use Integer class.
+- you can use Integer as the key of HashMap but you can't use int. Because an Object is needed.
+e.g. intValue()
+Returns the value of this Integer as an int.
+
+what is wrapper class?
+- A wrapper type enables a primitive to hold more contextual meaning
+- For instance an integer could be anything, whereas a class called Hours, 
+for example, gives the number meaning wherever it is used.
+
+Advantages of wrapper classes?
+ - collections cant use primitive data types. List<Integer>
+ - Wrapper objects are normal objects and there references can be null
+ - wrapper classes have their own defined methods so we can do various operations on primitive data.
+
+--------------------------------------------------------------------------------------------------	
+Abstract Class :- 
+Abstract Methods and Classes
+
+- An abstract class is a class that is declared abstract—it may or may not include abstract methods. 
+Abstract classes cannot be instantiated,(imp !) but they can be subclassed.
+- An abstract method is a method that is declared without an implementation (without braces, 
+and followed by a semicolon), like this:
+- If a class includes abstract methods, then the class itself must be declared abstract, as in:
+
+public abstract class GraphicObject {
+   // declare fields
+   // declare nonabstract methods
+   abstract void draw();
+}
+
+- constructor can not be abstract(think)
+- Abstract methods can not be static?  ( An abstract method is defined only so that it can be overridden in a subclass. However, static methods can not be overridden)
+- same way abstract methods can not be private.
+- same way abstract methods can not be final.
+- When an abstract class is subclassed, the subclass usually provides implementations 
+for all of the abstract methods in its parent class. 
+However, if it does not, then the subclass must also be declared abstract.
+
+
+- We can’t instantiate an abstract class. Then why constructors are allowed in abstract class? ( imp !)
+It is because, we can’t create objects to abstract classes but we can create objects to their sub classes. 
+From sub class constructor, there will be an implicit call to super class constructor. 
+That’s why abstract classes should have constructors. Even if you don’t write constructor for your abstract class, 
+compiler will keep default constructor.
+
+- Can we declare abstract methods as synchronized?
+No, abstract methods can not be declared as synchronized. 
+But methods which override abstract methods can be declared as synchronized.
+
+
+---------------------------------------------
+
+Interfaces :- 
+
+-an interface is a reference type, similar to a class, that can contain only constants, 
+method signatures, default methods, static methods, and nested types.
+- they achieve 100% abstraction, no method has concrete body. 
+- Method bodies exist only for default methods and static methods.
+- Interfaces cannot be instantiated—they can only be implemented by classes or extended by other interfaces.
+
+public interface OperateCar {
+   // constant declarations, if any  // they must be static final
+   /* static - we do not instantiate interface
+      final - we do not need to change them */ 
+   // method signatures
+   
+   int turn(Direction direction,
+            double radius,
+            double startSpeed,
+            double endSpeed); }
+			
+- Note that the method signatures have no braces and are terminated with a semicolon.	
+- To use an interface, you write a class that implements the interface.
+- When an instantiable class implements an interface, it provides a method body for each of the methods declared in the interface
+
+public class OperateBMW implements OperateCar {	
+	// implement method 
+	// implements local methods as needed. }
+	
+Can an interface extend another interface in Java?
+- Yes, an interface can extend another interface in Java	
+
+
+Multiple inheritance example :- 
+interface I1 {
+  abstract void test(int i);
+}
+interface I2 {
+  abstract void test(String s);
+}
+
+public class MultInterfaces implements I1, I2 {
+  public void test(int i) {
+    System.out.println("In MultInterfaces.I1.test");
+  }
+  public void test(String s) {
+    System.out.println("In MultInterfaces.I2.test");
+  }
+  public static void main(String[] a) {
+    MultInterfaces t = new MultInterfaces();
+    t.test(42);
+    t.test("Hello");
+  }
+}
+
+- We CANNOT extend two objects, but we can implement two interfaces.
+6. Multiple inheritances in Java possible?
+- 1. Mother Father are two classes Child is child - how to implement this in Java?
+interfaces
+
+- when a method from interface is implemented in sub class. 
+- it must be "public" u can up the specifier not bring it down. 
+- by default interface methods have public specifier. ( imp !)
+- by defualt interface is abstract. ( imp !)
+
+http://javaconceptoftheday.com/java-interview-questions-on-abstract-class/
+
+http://javaconceptoftheday.com/java-practice-coding-questions-on-abstract-classes/2/ 
+12,  solve questions later
+
+------------------------------------------------------------------------	
+	
+ Abstract Class vs Interface.
+
+ 1. 
+Abstract classes are used for Modelling a class hierarchy of similar looking classes.
+(For example Animal can be abstract class and Human , Lion, Tiger can be concrete derived classes) 
+Interface is used for Communication between 2 similar / non similar classes, 
+which does not care about type of the class implementing Interface.
+(e.g. Height can be interface property and it can be implemented by Human , Building , Tree.
+
+2. A class can implement multiple Interfaces WHERE AS A class can only extend one abstract class. 
+
+3. Every single Method declared in an Interface will have to be implemented in the subclass.
+Only Abstract methods have to be implemented by the subclass. An Abstract class can have normal methods with implementations.
+
+
+http://www.javatpoint.com/difference-between-abstract-class-and-interface
+
+http://beginnersbook.com/2013/05/abstract-class-vs-interface-in-java/
+
+-------------------------------------------------------------------------------------------------------
+
+final 
+- final class cannot be subclassed
+- final methods cannot be overridden. (This method is in superclass)
+- final methods can override. (Read this in grammatical way. This method is in subclass)
+- Final should not be confused with finalize() method which is declared in object class and called before an object is garbage collected by JVM.
+- Final is different than finally keyword which is used on Exception handling in Java.
+- All variable declared inside java interface are implicitly final. ??
+- Final and abstract are two opposite keyword and a final class can not be abstract in java.??
+- Making a collection reference variable final means only reference can not be changed but you can add, remove or change object inside collection.
+
+private final List loans = new ArrayList();
+loans.add(“home loan”);  //valid
+loans.add("personal loan"); //valid
+loans = new Vector();  //not valid
+
+- Making a class, method or variable final in Java helps to improve performance because JVM gets an opportunity to make assumption and optimization.
+
+- You can set the value of final variable in Constructor (if not already set) but not in method.
+  Reason constructor gets called only once but not method.
+------------------------------
+  
+final varaible :- 
+ final int FOO=5; ( right )
+ OR
+ final int FOO; public constructor(){ foo= 5; } ( right )
+ BUT
+ final int FOO; FOO=5; ( wrong)
+
+- By convention final variable is written in capital. 
+- A static final variable that is not initialized during declaration can only be initialized in static block ! ( imp !) discuss
+- Final variables are by default read-only.
+------------------------------
+
+final method :- 
+- Final method can not be overriden.
+- Final methods are faster than non-final methods because,
+they are not required to be resolved during run-time and they are bonded on compile time
+
+
+class A {
+  final void hello(){
+      //some code
+   }
+
+class B extends class A {
+  void hello() {  // this line will generate an error saying hello cannot be overridden
+   //some code
+   }
+------------------------------      
+ 
+Final class :- 
+- when you declare an entire class as final that class cannot be inherited by another class
+- Several classes in Java are final e.g. String, Integer and other wrapper classes( imp !)
+
+
+final class A{}
+
+class B extends class A {  // this will give a compile time error since A cannot be inherited since its final
+//class memebers
+} 
+
+--------------------------------------------------------------------------------------------------- 
+Exception handling :- ( imp !)
+- In Java Exception feature is implemented by using class like Throwable, Exception, RuntimeException 
+and keywords like throw, throws, try, catch and finally. 
+- All Exception are derived form Throwable class.
+
+how exceptions in java are handlled?
+- try, catch, finally blocks.
+
+error vs exception
+- errors are caused mostly by environment in which application is running.
+e.g. outOfMemoryError when JVM runs out of memory.
+- Exception are caused because the applicaiton itself.
+e.g. NullPointerException. 
+
+can we throw exception manually ? 
+yes ! throw exceptionInstance ;
+
+e.g. :- 
+try
+{
+    NumberFormatException ex = new NumberFormatException();    //Creating an object to NumberFormatException explicitly
+  
+    throw ex;        //throwing NumberFormatException object explicitly using throw keyword
+}
+catch(NumberFormatException ex)
+{
+    System.out.println("explicitly thrown NumberFormatException object will be caught here");
+}
+-----
+Difference between throw, throws and throwable. 
+- throw => keyword used to create exception manually.
+- throws => this indicate that particular method might throw an exception 
+e.g. :- 
+class ThrowAndThrowsExample
+{
+    void method() throws Exception
+    {
+        Exception e = new Exception();
+ 
+        throw e;            //throwing an exception using 'throw'
+    }
+}
+- throwable => - Throwable is a super class for all types of errors and exceptions in java. This class is a member of java.lang package	
+               - only instances of this class or subclasses are thrown by  JVM.
+			   - If you want to create your own customized exceptions, then your class must extend this class.
+-------------------
+valid combinations ?
+try
+catch ;
+
+try 
+finally;
+
+try
+catch
+finally;
+-------------------
+
+finally :- 
+- Finally is used to place important code, it will be executed whether exception is handled or not.
+- Finally is block. 
+- The finally block always executes when the try block exits. 
+- This ensures that the finally block is executed even if an unexpected exception occurs. 
+But finally is useful for more than just exception handling — 
+it allows the programmer to avoid having cleanup code accidentally bypassed by a return, continue, or break. 
+Putting cleanup code in a finally block is always a good practice, even when no exceptions are anticipated.
+
+---------------------------------------------------------------------------------------------------   
+finalize 
+
+- Removing unwanted objects or abandoned objects from the memory is called garbage collection.
+- finalize is a method of java.lang.Object. 
+- This method is used to perform some final operations or clean up operations on an object before it is removed from the memory
+- The java.lang.Object.finalize() is called by the garbage collector on an object when garbage collection determines 
+that there are no more references to the object.
+
+Can you call finalize() whenever you want??
+- u can call it explicitly :- Runtime.getRuntime().runFinalization() 
+  not guaranteed that it will be executed then and there. 
+
+- A subclass overrides the finalize method to dispose of system resources or to perform other cleanup
+- finalize() is never run more than once on any object
+--> it is called only once before the garbage collection.
+--> garbage collector checks if particular object is called by finalize(), then it is kept in finalize queue. 
+
+---------------------------------------------------------------------------------------------------   
+GArbage collector :- 
+The garbage collector is a program which runs on the Java Virtual Machine 
+which gets rid of objects which are not being used by a Java application anymore. 
+It is a form of automatic memory management.
+
+e.g. :- 
+for (File f : files) {
+    String s = f.getName();
+}
+
+- for every iteration, a new object is getting created. 
+- and old becomes useless, if not freed it will eat up space
+- so garbage collector comes into picture and frees memory.
+- This is done by jvm automatically. 
+--------
+can you force garbage collection in java? how?
+- In Java the GC runs automatically, but you can also call it explicitly 
+with System.gc() and try to force a major garbage collection
+-  it's not guaranteed to do anything. The JVM may just entirely ignore your request.
+-  It is a hint to the JVM to run a garbage collection
+
+-----------------
+Is there a destructor in java?
+- no equivalent of destructor in java
+- There is an inherited method called finalize, 
+but this is called entirely at the discretion of the garbage collector
+
+---------------------------------------------------------------------------------------------------   
+java file is compiled by java compiler ( It does not interact with the OS) and converts the java code into byte code. 
+- Now this bytecode can run on any machine
+
+- Difference between JRE JDK and JVM
+JVM, JRE and JDK are platform dependent because configuration of each OS differs.
+
+JVM :- java virtual machine = it is an abstract which provides run time environment for byte code to run.
+JRE :- java run time environment, different for different os. ( jvm + libraries and other files that jvm uses at runtime )
+JDK :- java development kit = (JRE + development tools )
+
+so Comipler > JVM > JRE > JDK. !
+-------
+
+4. Will a code written on a mac run on windows machine? Why or why not?
+Yes.
+- .java file
+- comiled converted to .class file
+- compressed to .jar file.
+- run on any machine
+
+---------------------------------------------------------------------------------------------------   
+difference between path and classpath?
+path :- path where system can find executable files (.exe)
+classPath :- where class files (.class)
+
+- using jar file in a project ? 
+include location of a jar file in classpath
+then we can compile "javac filename.java"
+----
+- set path :- set path= 'bin directory' // here bin path is set.
+- setting up a class path :- 
+javac -d "class directory" abc.java 
+=> abc.class will be generated in "class directory"
+
+set classpath="class directory"
+---------------------------------------------------------------------------------------------------   
+Java Static keyword :- 
+
+- The static members are stored inside the Class Memory. 
+- To access static members, you need not to create objects. Directly you can access them with class name.
+- but u can access them using objects as well
+
+The static can be:
+- variable (also known as class variable)
+- method (also known as class method)
+- block
+- nested class
+
+1. Static variable:- 
+shared by all objects of the class.
+- commom property such as 'college name' is kept static.
+e.g. counter of instances is kept static. 
+- memory efficient.
+----------------------------
+2. Static method
+- method belongs to class and not to object
+- can be invoked without the need of invoking class object.
+- static method can access static data members and change the value of them
+- static method can not access instance variables as, variables are instantiated only by object. !
+
+class Calculate{  
+  static int cube(int x){  
+  return x*x*x;  
+  }  
+  
+  public static void main(String args[]){  
+  int result=Calculate.cube(5);  
+  System.out.println(result);  
+  }  
+}  
+
+limitations :- 
+- can not call non static variables or non static methods
+- this and super can not be used in the static context.
+
+3. How to access the static methods of a class? - involving reflections.
+?????????????
+https://www.google.com/webhp?sourceid=chrome-instant&ion=1&espv=2&ie=UTF-8#q=reflection%20in%20java
+
+reflections are used to inspect a code.
+lets say we want to use a static method "doSomething" if it exists for object foo
+Method method = foo.getClass.getmethod("doSomething",null)
+method.invoke (foo,null)
+
+----------------------------
+3. Static block
+- used to initialise the static data member.
+- executed even before main
+----------------------------
+4. nested class -> clas defined inside class
+
+-only nested classes can be static not super class.
+http://www.geeksforgeeks.org/static-class-in-java/
+- does need to reference outer class to use
+- can reference only static members.
+
+-----------------------------------------------------------------------------------------
+how do u implment thread in java?
+
+Thread :- 
+- a program is split into multiple executions paths 
+- thread - single sequence of execution within program.
+e.g. browser -> process ; tab -> thread .
+
+1 cpu, 2 processes -> concurrency.
+2 cpu, 2 processes -> parallelism.
+
+
+-- whenver we run java program
+- jvm creates a thread whose task is to run main()
+- multiple thread in application
+- each thread will have private run time stack & local variables
+- however all threads see same dynamic memory.
+
+Create threads?
+2 ways - 
+1. Subclass from Thread class, and instantiate new object of this class
+2. or implement runnable interface.
+
+in both cases we need to call run() method. 
+
+1. 
+class MyClass extends Thread {
+	@override
+	public void run() {
+	for ( i = 1 to 10 )
+	{
+		display i & Thread.currentThread.getID();
+	}
+	Thread.sleep(100)
+	}
+}
+
+public class Demo {
+	public static void main( String args[])
+	{
+		MyClass mc = new MyClass();
+		mc.start(); // thread is created.
+		
+		MyClass mc1 = new MyClass();
+		mc1.start(); // threads is created.
+	}
+}
+to see thread id -> Thread.currentThread.getID() in run method
+
+
+2. By implementing runnable interface. 
+
+class MyClass implements Runnable {
+
+	@override
+	public void run() {
+	for ( i = 1 to 10 )
+	{
+		display i;
+	}
+}
+
+public class Demo {
+	public static void main( String args[])
+	{
+		Thread T1 = new Thread(new MyClass());
+		Thread T2 = new Thread(new MyClass());
+		
+		T1.start(); // thread 1 started
+		T2.start(); // thread 2 started
+	}
+}
+
+------------
+3. directly creating one thread in main without extra class
+public class Demo {
+	public static void main( String args[])
+	{
+		Thread T1 = new Thread(new runnable ()
+		{
+			@override
+			public void run() {
+				for ( i = 1 to 10 )
+				{
+					display i;
+				}
+		})
+		
+		
+		T1.start(); // thread 1 started
+		
+	}
+	
+}
+
+---------------------------------------------------------
+
+Synchronized block :- 
+- Java is a multi-threaded language where multiple threads run in parallel.
+- Synchronized keyword provides a lock on the object and thus prevents race condition.
+- Only one thread at a time can access synchronized methods 
+and if there are multiple threads trying to access the same method 
+then other threads have to wait for the execution of method by one thread
+e.g. 
+void foo() {
+    synchronized (this) {
+      ...
+    }
+
+====================================================================================================
+- what is String Buffer? what is public static void main(String[] args), explain it
+- string, stringbuilder, stringbuffer ?
+
+
+- If your string is not going to change use a String class because a String object is immutable.
+- If your string can change (example: lots of logic and operations in the construction of the string) and
+will only be accessed from a single thread, using a StringBuilder is good enough.
+- If your string can change, and will be accessed from multiple threads, 
+use a StringBuffer because StringBuffer is synchronous so you have thread-safety.
+
+---------------------
+String pool :- 
+String s = "a" + "bc";
+    String t = "ab" + "c";
+    System.out.println(s == t);
+	
+When compiler optimizes your string literals, it sees that both s and t have same value and thus you need only one string object. 
+It's safe because String is immutable in Java.
+As result, both s and t point to the same object and some little memory saved.	
+
+====================================================================================================
+What is package:-
+
+Packages in Java is a mechanism to encapsulate a group of classes, interfaces and sub packages
+====================================================================================================
+What are generics?
+what are generics and why are they helpful?
+generics pro and cons?
+- Why Java Generic?
+
+- Generics are meant to prevent Run-Time class cast exceptions by early detecting them during Compilation-Time.
+- and thus increase type safety when working with Collections.
+
+
+public class GenericMethodTest {
+   // generic method printArray
+   public static < E > void printArray( E[] inputArray ) {
+      // Display array elements
+      for(E element : inputArray) {
+         System.out.printf("%s ", element);
+      }
+      System.out.println();
+   }
+
+   public static void main(String args[]) {
+      // Create arrays of Integer, Double and Character
+      Integer[] intArray = { 1, 2, 3, 4, 5 };
+      Double[] doubleArray = { 1.1, 2.2, 3.3, 4.4 };
+      Character[] charArray = { 'H', 'E', 'L', 'L', 'O' };
+
+      System.out.println("Array integerArray contains:");
+      printArray(intArray);   // pass an Integer array
+
+      System.out.println("\nArray doubleArray contains:");
+      printArray(doubleArray);   // pass a Double array
+
+      System.out.println("\nArray characterArray contains:");
+      printArray(charArray);   // pass a Character array
+   }
+}
+
+====================================================================================================
+Collections :- 
+The Java Collections Framework is a collection of interfaces and classes which helps in storing and processing the data efficiently
+
+If size is fixed go for array, if not go for collections.
+<Integer> here is generic.
+
+collections:- 
+
+collection :- concept.
+Collection :- interface
+Collections :- Class. 
+
+- Collection is an interface -> List(interface) implements collection and -> ArrayList ( is a class) implements list.
+- Collection is an interface -> set(interface) implements collection and -> HashSet ( is a class) implements set.
+- Collection is an interface -> map(interface) implements collection and -> HashMap ( is a class) implements map.
+- Dictionary is an Class & map(interface) -> HashTable ( is a class) extends Dictionary class & implements map.
+
+Collection value = new ArrayList();
+	values.add(5);
+	values.add(10);
+	values.add("sushant");
+	
+i can add anything. 
+
+generics come into picture. !
+
+Collection<Integer> values = new 	Arraylist<Integer>(); 
+now 	values.add("sushant") will give the error !
+---------------------------
+
+List<Integer> values = new ArrayList<>();   // can have duplicate values. but in sequence. 
+
+set<Integer> values = new HashSet<>();	// unique values but unordered.
+set<Integer> values = new TreeSet<>();  // unique values and get it in sorted format.
+
+map<Integer,Integer> values = new HashMap<>()  // 
+
+	
+========================================================================================================================	
+try block :-
+the try block contains a block of program statements within which an exception might occur
+
+catch block:-
+- A catch block must be associated with a try block. 
+- The corresponding catch block executes if an exception of a particular type occurs within the try block. 
+- A single try block can have multiple catch statements associated with it, 
+but each catch block can be defined for only one exception class
+
+Syntax :-
+try
+{
+     //statements that may cause an exception
+}
+catch (exception(type) e(object))?
+{
+     //error handling code
+}
+========================================================================================================================
+- what is the difference between static and dynamic memory allocation?
+- Is java pass by value or ref? why?
+call by value. 
+------------------------------------------
+- Code Snippet - Polymorphism
+- Code Snippet - Typecasting
+- Code Snippet- Inheritance
+- Predict the output of the code snippet.
+- OOP questions(Class vs Object vs Instance)
+- Advantages of OOP
+- - Program a class that extends another class and overrides its methods. Say the expected output of running each method based on what was overridden. 
+- Questions from the Online coding challenge about how can you improve the given solution.
+=====================================================================================================================
+
+-- taking input --
+import java.util.Scanner;
+class ScannerTest{
+public static void main(String args[]){
+Scanner sc=new Scanner(System.in);
+System.out.println("Enter your rollno");
+int rollno=sc.nextInt();
+-----------------------
+
+- no is even or odd?
+- no is prime or not?
+- no is palindrome in java?
+- is number power of 2 in java?
+- bubble sort
+- reverse string without stringbuffer
+- check if no is armstrong no or not?
+- fibonacci series :- recursive an iterative version
+- find factorial :- recursive an iterative version
+- GCD of a number
+- LCM of a number. 
+- print pattern 
+*
+***
+*****
+***
+*

@@ -1,0 +1,82 @@
+Implement stack :- 
+
+using Linked list. !
+
+
+ public class StackException extends Exception
+   {
+      public StackException( String message )
+      {
+   	 super( message );  // Calls Exception's constructor    
+      }
+   }
+
+public class Node {
+
+	public int data;
+	public Node next;
+
+	public Node(int data) {
+    this.data = data;
+	}
+}
+
+class Stack {
+
+    Node top;
+
+    int pop() throws StackException
+	{
+        if (top != null) {
+            Node item = top.data;
+            top = top.next;
+            return item;
+        }else 
+		{
+			throw new StackException("underflow");
+		}
+        
+    }
+
+    void push(Object item) {
+        Node t = new Node(item);
+        t.next = top;
+        top = t;
+    }
+
+    int peek() throws StackException
+	{
+		if (top != null) {
+			return top.data;
+		}
+		else {
+			throw new StackException("underflow");
+		}
+    }
+}
+
+ public static void main( String[] args )
+   {
+      int   x;
+      Stack s;
+
+      Stack s = new ArrayStack( 6 );    // Will cause underflow
+
+      try
+      {
+         s.push(4);
+		 s.push(10);
+		 x=s.pop();
+		 x=s.pop();
+      }
+      catch ( StackException e )
+      {
+         System.out.println("Error detected: " + e.getMessage() );
+         System.exit(1);
+      }
+   }
+--------------------------------------------------------------------------------------------.
+
+think abt array. 
+implement queue as well. 
+--------------------------------------------------------------------------------------------.

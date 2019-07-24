@@ -1,0 +1,694 @@
+Cracking the code interview :- 
+Complexities need to be updated for following values
+======================= Data Structures =========================
+1. Arrays & Strings :- 
+
+1) Hash Table & HashMap:-
+
+-------------------------------
+Implementation of HashMap & Table :-
+- hashCode() function which returns int is hashMap function.
+
+HashMap working :- 
+The put operation performs the following steps :
+1. calculate hashcode for key
+2. rehash it. lets call the rehashed results as h
+3. calculate bucket index as h & (capacity -1)
+4. now iterate over the bucket and compare key with all existing keys using equals()
+5. if the key already exists, change the value of that Entry object
+6. else create a new Entry object and add to the head of the linked list
+7. increment mod count
+8. resize if necessary
+ 
+get operation
+ 
+The get operation performs the following steps :
+1. calculate hashcode for key
+2. rehash it. lets call the rehashed results as h
+3. calculate bucket index as h & (capacity -1)
+4. now iterate over the bucket and compare key with all existing keys using equals()
+5. if the key already exists return the corresponding value in the Entry object else no value found
+
+what if two different keys have same hashcode -> equals() method comes into picture.
+
+performance depends on :- 
+1. capacity (number of buckets) 
+2. Load factor (how full hashmap allowed to get before its capacity is increased)
+   default value is .75
+
+ collision handling :- 
+1. separate chaining ( linked list plus redistribution if load factor > 0.75)
+2. Open addressing :- put in next available open slot (not good) 
+-------------------------------
+HashMap vs HashTable :-
+1. HM is roughly equivalent to HT except it is not synchronous and allows null values
+    1 null key and any no of null values.
+2. iterator in HM is fail safe ; enumarator in HT is not ( for concurrent execution.)
+
+ HashMap can be synchronized by
+
+Map m = Collections.synchronizeMap(hashMap);
+------------------------------------------
+- Linked list and hash table
+If no of collision is high worst case runtime is O(N)
+generally good implementation is O(1)
+
+- Alternatively, we can implement the hash table with a balanced binary search tree. 
+This gives us an O( log N) lookup time. The advantage of this is potentially using less space, 
+since we no longer allocate a large array. We can also iterate through the keys in order, 
+which can be useful sometimes.
+
+Definition :-
+HashMap<Character, Integer> hm = new HashMap<Character, Integer>();
+
+Functions:-
+1. To check if key is present? :- boolean containsKey(Object key) -> hm.containsKey(2)
+2. To check if value is present? :-boolean containsValue(Object value) -> hm.containsValue(value)
+3. To retrieve object :- Object get(Object key) -> hm.get(key)
+4. To insert object :- Object put(Object key, Object value) -> enter value in hashmap
+5. to check if hm is empty :- boolean isEmpty().
+6. To remove the object :- Object remove(Object key)
+7. Length of hashmap :- int size()
+8. clear hashmap :- hm.clear() // clears hashmap.
+9. Iteration :- for (Integer key : map.keySet())
+
+Iteration :-
+ for (Map.Entry<Integer, Integer> entry : map.entrySet()) {  //complete entry  
+     use entry.getKey() & entry.getValue();
+ for (Integer key : map.keySet()) {  // key
+	 use key directly !
+ for (Integer value : map.values()) {  //value
+	 use value directly !
+------
+
+2) Arraylist & Resizable Arrays
+
+- An Arraylist is an array that resizes itself as needed while still providing 0( 1) access
+A typical implementation is that when the array is full, the array doubles in size. 
+Each doubling takes 0( n) time but it happens rarely.
+
+ArrayList :- 
+ Definition :- 
+ Arraylist<String> sentence= new Arraylist<String>();
+ 
+ Functions :- 
+ sentence.add(ssup?) -> Return type boolean
+ sentence.remove(ssup?) -> It removes an element and returns the same.
+ sentence.remove(index) -> It removes an element at index and returns the same.
+ 
+ by default it is remove by index , sentence.remove(1); removes 2nd element.
+	sentense.remove(new Int(1)); object is passed here, so removes that object with value 1 !!
+
+ boolean contains(Object o) -> checks if object is present and return true or false
+ Object get(int index) -> object at that index is returned.
+ int indexOf(Object o) -> -1 otherwise	
+ int size() -> list.size
+ void trimToSize() -> Trims the capacity of this ArrayList instance to be the list's current size
+ void clear() -> Clears all the values.
+ list.addAll(list1) // adds all elements of arraylist1 to list.
+ Collections.sort(list);
+ list.set(index,value); //replaces value at index.
+ 
+ to array :- 
+List<T> list = new ArrayList<T>();
+T [] countries = list.toArray(new T[list.size()]);
+
+Iteration :-
+
+List<String> names = new LinkedList<String>();
+
+for (String name : names)
+    System.out.println(name);
+------
+3) HashSet
+HashSet<Integer> hs = new HashSet<Integer>();
+
+boolean add (object 0) - add object 0
+void clear -> clears hashset
+boolean contains(Object o) -> checks if o is present
+boolean isEmpty -> returns true ifno elements are present.
+Iterator iterator -> for iteration ; used with hasNext()
+boolean remove(Object o) -> removes object.
+int size() -> returns size of the hashset
+hs1.addAll(hs); adds unique values to existing hash set
+hs1.retainAll(hs); works like intersection ! only keeps common values
+hs1.removeAll(hs); only keeps values that are only present in hs1 and not hs ! ( like minus operator)
+
+iterator example :- 
+	Iterator it= hs.iterator();
+	
+	while (it.hasNext())
+	{ val = it.next();
+	}
+	return val;
+------------
+How it achieves uniquenes ??
+
+hashset internally uses hashmap !
+hashset.add(key) -> hashmap.put(key,dummmydata) 
+   put method returns
+     null if key is unique and added
+	 old value if key is duplicate
+so add method returns true if null else false !	
+
+Important operations with hash. 
+Union :-
+Set<Integer> union = new HashSet<>(grp1);
+union.addAll(grp2);
+------------
+Intersection :-
+Set<Integer> intersection = new HashSet<>(grp1);
+intersection.retainAll(grp2);
+-------
+Set<Integer> diff = new HashSet<>(grp1);
+diff.removeAll(grp2);
+-------
+-------------------------------------------------------------	
+4) String
+There are two ways to create a String in Java
+
+- String literal
+- Using new keyword
+
+String str1 = Welcome;
+String str2 = Welcome;
+
+1st a new String object Welcome gets created and assigns it to str1,
+now for st2 , Welcome object is already present so again str2 points to same object. 
+
+If we want to create a new object for str2, we must use new keyword. 
+String str1 = new String(Welcome);
+String str2 = new String(Welcome);
+
+methods :- 
+- char charAt(int index) -> char result = s.charAt(8);
+- String concat(String str) ->s.concat( "all the time");
+ Concatenates the specified string to the end of this string.
+- int indexOf(char ch)-> returns first occurance of 'ch'
+-> int length() -> useful for loops
+-> String replace(char oldChar, char newChar) 
+-> String[] split(String regex) => String[] arr= theNames.split(/)
+-> Str.substring(10, 15) -> beginindex inclusive, endIndex exclusive. 
+-> toCharArray -> Char []a=Str.toCharArray() ;
+-> Str.toLowerCase()
+-> Str.toUpperCase()
+-> Str.trim();
+
+Iteration :- 
+------
+5) StringBuilder
+StringBuilder str = new StringBuilder(tutorials );
+-> str.append(point);
+-> System.out.println(length =  + str.length());
+-> System.out.println(reverse =  + str.reverse());
+-> String abc = str.toString();
+- > not thread safe , use it only when using single thread
+
+5.1) StringBuffer
+same as builder but thread safe but comes at a penalty, slower in comparison to stringbuilder.
+
+Iteration :-
+------
+6) Arrays
+1. Sorting the same arrays
+	char[] content= s.toCharArray();
+	char array to string ?
+	char [] a;
+	String b = new String(a);
+	
+	java.util.Arrays.sort(content);
+2. Array to string
+	return new String(array_name);
+
+int []a = new int[10]; (long,String,char,boolean)
+Or
+int []a = new int[]{2,3,4,5,6}; directly passing list in curly braces
+Or
+String[] stringArray = list.toArray(new String[0]);
+
+
+-- multi dimensional array:- 
+int[][] multD = new int[5][];
+for (int i = 0; i < 5; i++) {
+  multD[i] = new int[10];
+}
+--
+To Print array
+Arrays.toString(arrName);
+-----------------------------------	
+7) Linked List 
+- Sequence of Nodes.
+- each node points to the next node in the list.
+- access time is O(k)
+
+- Can be solved using recursion or Runner Technique.
+
+-------- Method 1 ----------
+class Node 
+{
+	Node next = null;
+	int data;
+	
+	public Node(int d)
+	{
+		data = d;
+	}
+} // Assign Node to a head and through , u can access the LL. 
+
+-------- Method 2 -------------
+Inbuilt class :- 
+
+LinkedList<Integer> ll = new LinkedList<Integer>();
+
+Methods :- 
+- boolean add(E e)
+- void add(int index, E element)
+- void addFirst(E e)
+- boolean contains(Object o)
+- E get(int index)
+- E getFirst()
+- E getLast()
+- E peek()
+- E remove() -> This method retrieves and removes the head
+- E remove(int index) -> removes the element at the specified position
+- int size()
+- Object[] toArray() -> ll.toArray()
+- E removeFirst() -> order of 1, removes first element
+- E removeLast() -> order of 1, retries and removes element.
+------------------------------------------------------------------------
+8) Stack
+- Often useful in recursive algos.
+- Stack can also be used to implement recursive algo iteratively.
+
+Stack <Integer> or <Object> st = new Stack <Integer> or <Object>();
+boolean empty()
+Object peek( )
+Object pop( )
+Object push(Object element) // returns the same element that is pushed.
+int search(Object element) // searches element , returns offset from top else -1
+------------------------------------------------------------------------
+9) Queues
+- often used in implementing a breadth first search
+- implementing a cache.
+- In breadth-first search, for example, we used a queue to store a list of the nodes that we need to process. 
+Each time we process a node, we add its adjacent nodes to the back of the queue. This allows us to process
+nodes in the order in which they are viewed. 
+
+queue implementation :- https://www.tutorialspoint.com/javaexamples/data_queue.htm
+
+Queue<Node> q = new LinkedList<>();
+q.add();
+q.remove();
+q.isEmpty();
+q.addFirst();
+q.addLast();
+q.removeFirst(); -> removes first and returns next first element.
+q.removeLast(); ->removes last and returns next last element from LL.
+q.size();
+Object[] toArray(Object[] a) -> converts list to array
+-------------------------------------------------------------------------------
+10) Priority Queue
+
+Implemented with heap as a backbone, element with maximum priority is retrieved first.
+
+PriorityQueue<String> pq= new PriorityQueue<String>(); 
+	- default size 11
+	- orders with their natural order.
+
+Methods :-
+pq.add(); --> add  element to queue and rearrange
+pq.clear(); -> empty the queue
+pq.contains(obj o); -> check if object is present
+pq.peek(); -> check the element at the head
+pq.poll(); -> retrieve and remove headof the queue
+pq.size();
+pq.toArray();
+
+Iteration :- 
+Iterator<String> itr3 = pQueue.iterator(); 
+        while (itr3.hasNext()) 
+            System.out.println(itr3.next()); 
+----------
+Priority Queue with implemented comparator ------------
+
+class Student { 
+    public String name; 
+    public double cgpa; 
+          
+    // A parameterized student constructor 
+    public Student(String name, double cgpa) { 
+      
+        this.name = name; 
+        this.cgpa = cgpa; 
+    } 
+      
+    public String getName() { 
+        return name; 
+    }  
+} 
+
+public class Example {
+
+	public static void main(String []args) {
+		PriorityQueue<Student> pq = new PriorityQueue<Student>(5, new StudentComparator());
+		add and operate stuff, poll , clear stuff
+		 while (itr3.hasNext()) 
+            		System.out.println(itr3.next()); 
+	}
+Or 
+		while (!pq.isEmpty()) { 
+                System.out.println(pq.poll().getName()); 
+}
+
+// descending order
+class StudentComparator implements Comparator<Student>{ 
+              
+            // Overriding compare()method of Comparator  
+            // for descending order of cgpa 
+            public int compare(Student s1, Student s2) { 
+                if (s1.cgpa < s2.cgpa) 
+                    return 1; 
+                else if (s1.cgpa > s2.cgpa) 
+                    return -1; 
+                return 0; 
+                } 
+	} 
+  
+// ascending order
+class StudentComparator implements Comparator<Student>{ 
+              
+            // Overriding compare()method of Comparator  
+            // for ascending order of cgpa 
+            public int compare(Student s1, Student s2) { 
+                if (s1.cgpa > s2.cgpa) 
+                    return 1; 
+                else if (s1.cgpa < s2.cgpa) 
+                    return -1; 
+                return 0; 
+                } 
+	} 
+-------------------------------------------------------------
+The Default PriorityQueue provided by Java is Min-Heap, If you want a max heap following is the code
+public class Sample {
+    public static void main(String[] args) {
+        PriorityQueue<Integer> q = new PriorityQueue<Integer>(new Comparator<Integer>() {
+
+            public int compare(Integer lhs, Integer rhs) {
+                if(lhs<rhs) return +1;
+                if(lhs>rhs) return -1;
+                return 0;
+            }
+        });
+        q.add(13);
+        q.add(4);q.add(14);q.add(-4);q.add(1);
+        while (!q.isEmpty()) {
+            System.out.println(q.poll());
+        }
+    }
+
+}
+
+=======================================================================================
+Collection iterators !
+
+------- Before version 5 ---------
+List names = new LinkedList();
+
+// ... add some names to the collection
+
+Iterator i = names.iterator();
+while (i.hasNext())
+  {
+    String name = (String) i.next();
+    System.out.println(name);
+  }
+  
+  ------- for hashmap !
+1)complete entry set 1
+  
+  Map<Integer, Integer> map = new HashMap<Integer, Integer>();
+	for (Map.Entry<Integer, Integer> entry : map.entrySet()) {
+    System.out.println("Key = " + entry.getKey() + ", Value = " + entry.getValue());
+	}
+
+2) using keys
+
+	for (Integer key : map.keySet()) {
+		System.out.println("Key = " + key);
+	}
+
+3) using values
+	for (Integer value : map.values()) {
+		System.out.println("Value = " + value);
+	}
+	
+4) using iterator
+	Map<Integer, Integer> map = new HashMap<Integer, Integer>();
+	Iterator<Map.Entry<Integer, Integer>> entries = map.entrySet().iterator();
+	while (entries.hasNext()) {
+		Map.Entry<Integer, Integer> entry = entries.next();
+		System.out.println("Key = " + entry.getKey() + ", Value = " + entry.getValue());
+	}	
+---------------------------------- 
+before version 8
+
+List<String> names = new LinkedList<String>();
+
+for (String name : names)
+    System.out.println(name);
+---------------------------------- 
+After java 8 
+List<String> names = new LinkedList<>();
+names.forEach(name -> System.out.println(name));
+	
+=======================================================================================	
+11) Trees 
+
+- Tree is a data structure composed of nodes.
+- each tree has a root node, root node has zero or more child nodes and so on,
+
+Definition of node :- 
+class Node {
+	public String name;
+	public Node[] children;
+}
+
+
+=> Trees vs Binary Trees
+- Each node of a binary tree has upto 2 nodes max.
+
+=> Binary Tree vs. Binary Search Tree
+- BST = BT + (left <= root < right) !
+
+=> Balanced vs Unbalanced 
+- Discuss this !
+
+=> Complete binary tree
+- every level of a tree is fully filled may be except for the last level.
+- last level should be filled left to right.
+
+=> Full binary tree
+- every node has zero or 2 children
+- no node has one child.
+
+=> Perfect binary tree.
+- Full + Complete
+- All leaf will b at the same level and this level will have maximum nodes.
+---------------------------------------------------------
+=> Binary Tree Traversal. 
+
+Breadth first search.
+Queue<TreeNode> queue = new LinkedList<BinaryTree.TreeNode>() ;
+public void breadth(TreeNode root) {
+    if (root == null)
+        return;
+    queue.clear();
+    queue.add(root);
+    while(!queue.isEmpty()){
+        TreeNode node = queue.remove();
+        System.out.print(node.element + " ");
+        if(node.left != null) queue.add(node.left);
+        if(node.right != null) queue.add(node.right);
+    }
+}
+------------------
+Depth first search. ( 3 types )
+1. In order traversal 
+- When performed on BST, it visits nodes in ascending order hence the name in-order.
+
+implementation :- 
+void inOrderTraversal (TreeNode node)
+{
+	if (node != null )
+	{
+		inorderTraversal(node.left);
+		visit(node)
+		inorderTraversal(node.right);
+	}
+}
+---
+2. Pre-Order Traversal
+- it visits the current node before its child nodes hence pre-order
+- root is always visited first.
+
+implementation:- 
+void preOrderTraversal(TreeNode node)
+{
+	if(node !=null)
+	{
+		visit(node);
+		preOrderTraversal(node.left);
+		preOrderTraversal(node.right);
+	}
+}
+------
+
+3. Post-order Traversal
+- it visits the current node after child nodes hence post-order
+
+implementaion :-
+void postOrderTraversal(TreeNode node)
+{
+	if (node != null)
+	{
+		postOrderTraversal(node.left);
+		postOrderTraversal(node.right);
+		visit(node);
+	}
+}
+===========================
+
+12) Binary heaps ( Min-heaps and Max heaps) 
+
+- A min-heap is a complete binary tree (that is, totally filled other than the rightmost elements on the last
+level) where each node is smaller than its children. The root, therefore, is the minimum element in the tree.
+
+- We have two key operations on a min-heap: insert and extract_min.
+
+insert :- 
+- When we insert into a min-heap, we always start by inserting the element at the BOTTOM. We insert at the
+RIGHTMOST spot so as to maintain the complete tree property. 
+- Then, we "fix"the tree by SWAPPING the new element with its PARENT, until we find an appropriate spot for
+the element. We essentially BUBBLE UP the minimum element.
+- takes O(log n)
+
+extract_min :- 
+- peek order of 1 operation. (root node)
+- remove 
+- First, we remove the minimum element and swap it with the last element in the heap (the bottommost,
+rightmost element). 
+- Then, we bubble down this element, swapping it with one of its children until the min­heap 
+property is restored. 
+
+- Do we swap it with the left child or the right child? 
+=> That depends on their values. There's no inherent ordering between the left and right element, 
+but you'll need to take the smaller one in order to maintain the min-heap ordering. 
+- takes O(log n) time.
+
+
+Tries :- 
+You can store entire dictionary think !
+==================================================
+13) Graphs:- 
+- Tree is a connected graph without cycles.
+- A graph is a collection of nodes with edges between them.
+- Directed graph - one way street
+- UDirected graph - two way street
+
+Ways to represent a Graph :- 
+i) Adjacency list :-
+Every vertex (or node) stores a list of adjacent vertices.
+In an undirected graph, an edge like (a, b) would be stored twice: 
+once in a's adjacent vertices and once in b's adjacent vertices.
+
+Implementation :- 
+class Graph
+{
+	public Node[] nodes;
+}
+
+class Node
+{
+	public String name;
+	public Node[] children;
+}
+----------
+An array or hashtable of lists is enough
+0: 1 
+1: 2
+2: 0,3
+==========
+
+ii) Adjacency Matrix :-
+- An N*N matrix with boolean values or (1 & 0)
+- if edge is present -> 1 else 0.
+- In an undirected graph, an adjacency matrix will be symmetric. 
+- In a directed graph, it will not (necessarily) be. 
+------------------
+
+Graph Search :- 
+i) DFS :- 
+- we start at the root and explore each branch completely before moving on to next
+- we go deep first before we go wide.
+- DFS is often preferred if we want to visit every node in the graph. 
+Both will work just fine, but depth-first search is a bit simpler.
+
+Implementaion :- 
+void search (Node root)
+{
+	if (root == Null) return;
+	visit(root);
+	root.visited=true;
+	
+	for each(Node n in root.adjacent)
+	{
+		if(n.visited==Null)
+		{
+			search(n);
+		}	
+	}
+}
+
+
+
+ii) BFS :-
+- we start at node and explore each neighbour before gng to any of their children
+- we go wide b4 we go deep.
+- if we want to find the shortest path (or just any path) between two nodes, 
+BFS is generally better. 
+
+Implementation :- 
+
+My solution:- 
+void search(Node root)
+{
+	Queue q = new  Queue();
+	if(root==Null) return;
+	visit(root);
+	root.visited=true;
+	q.enque(root) ; //added at the end of the queue.
+	
+	while (!q.isEmpty())
+	{
+		Node r= q.deque();
+		for each(Node n in r.adjacent)
+		{
+			if(n.visited==false)
+			{
+				visit(n);
+				n.visited=true;
+				q.enqueue(n);
+			}
+		}
+	}
+}
+
+
+iii) 
+Bidirectional search
+- used to calculate shortest distance between a source and destination.
+----------------------------------------------------------------------
+----------
+Complexity
+O( x + 2x + . . . + nx). =>O(xn^2).
+======================================================================

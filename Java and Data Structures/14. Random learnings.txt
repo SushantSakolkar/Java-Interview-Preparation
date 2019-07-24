@@ -1,0 +1,137 @@
+questions 
+
+Taking input :- 
+ Scanner scan = new Scanner(System.in);
+        int n = scan.nextInt();
+--------------------------------------------
+- Stacks use
+	Stack<character> st = new Stack<>();
+	string.charAt(i);
+	st.push();
+	st.pop();
+	st.peek();
+	st.empty();
+	int search(Object element) // searches element , returns offset from top else -1 , see if can be used
+
+- Character is wrapper ? char is primitive
+ yes. 
+ 
+ to traverse ( char c : hm.keyset() ) 
+				{
+					if(hm.get(c) != 0) return false;
+				}
+				
+- to check hashmap,hashset,Queue empty ? isEmpty() ; rest empty();
+hm.clear() to clear
+for (Integer key : map.keySet()) {  // key
+	 use key directly !
+ for (Integer value : map.values()) {  //value
+	 use value directly !
+	 
+hashmap -> key,value 	 
+arraylist -> index,value 	 
+	 list.addAll(list1) // adds all elements of arraylist1 to list.
+ Collections.sort(list);
+ list.set(index,value); //replaces value at index.
+ 
+  to array :- 
+List<T> list = new ArrayList<T>();
+T [] countries = list.toArray(new T[list.size()]);
+
+arraylist iteration:-
+for (String name : names)
+    System.out.println(name);
+--------------
+Queue
+
+Queue <Node> q = new LinkedList<>();
+q.add();
+q.remove();
+	
+---------
+int min = Integer.MAX_VALUE;
+--------
+define a new array :-
+boolean[] notPrime = new boolean[n];	
+------
+String builder :- 
+StringBuilder str = new StringBuilder(tutorials );
+-> str.append(point);
+-> System.out.println(length =  + str.length());
+-> System.out.println(reverse =  + str.reverse());
+-> String abc = str.toString();
+------
+String methods
+String [] ret = s.split(" ");
+String sub = Str.substring(10, 15) -> beginindex inclusive, endIndex exclusive. 
+------
+Arrays.sort(arrayName);
+
+character usage -------
+A-Z= 65 -90
+a-z= 97-122
+int val=(int) str.charAt(i) -> Gives ASCII value.
+
+----------------------------------------------------
+- example of multithreading in web applications.
+- design patterns you have used.
+- the island problem
+
+singleton class :- 
+	- one instance of the class will be created by itself. so we will use private constructor.
+	
+- heap examples.
+- at any given time wwale examples
+-------------------
+throw, throws and try catch examples think...
+--------------
+complexities
+------------
+Math.ceil function ! , base as well ?
+-----
+sort string -> 
+ private String sortString (String s){
+        char [] charArray = s.toCharArray();
+        Arrays.sort(charArray);
+        return new String(charArray); // important concept char array to string
+    }
+----------------
+List of lists
+
+Correct :- 
+List<List<String>> test = new ArrayList<List<String>>();
+&
+ArrayList<List<String>> test = new ArrayList<List<String>>();
+&
+List<List<String>> test = new ArrayList<>();
+
+Incorrect :-
+List<List<String>> test = new ArrayList<ArrayList<String>>();
+error :-  incompatible types: ArrayList<ArrayList<String>> cannot be converted to List<List<String>>
+---
+List<List<String>> test = new List<List<String>>();
+error: List is abstract; cannot be instantiated
+----------------------------------------------------------------
+
+Making a list out of hashmap values ---
+
+Map<String,Integer> hm1 = new HashMap<String,Integer>();
+        hm1.put("first",1);
+        hm1.put("second",2);
+        hm1.put("third",3);
+        
+        List<Integer> lst = new ArrayList<Integer>(hm1.values());
+        System.out.println(lst);
+--------------------------------------------------------------
+
+if function definition is 
+public List<List<String>> groupAnagrams(String[] strs)
+then return is
+		return new ArrayList<List<String>>(); !
+-------------------------------------------------------------	
+dp ???
+-----------------------------------------
+array initialization with value passing;
+String[] mapping = new String[] {"0", "1", "abc", "def", "ghi", "jkl", "mno", "pqrs", "tuv", "wxyz"};
+-----------------------------------
+Math.abs(ptr.data - ptr.right.data) == 1

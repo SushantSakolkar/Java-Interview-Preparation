@@ -1,0 +1,228 @@
+1. Handle ambiguity - ask questions.
+	who is going to use it
+	what is the purpose
+	why is it being used
+	how
+	when
+	where
+	
+2. Define core objects.
+	e.g. restaurant - tables, guest, waiter, cook, order, manager etc.
+	
+3. Analyze relationships
+	- which objects are members of another object, which object inherit from other object, are relationships many to many or one to many
+	- what are the data structures required.
+	
+	- Party should have array of guests
+	- server and hosts inherit for the restaurant
+	- each table has one party, but each party may have multiple tables
+	- there is one host for the restaurant. 
+	
+	here you can ask if one table can have multiple parties, how much general the design should be etc.
+	
+4. Investigate actions
+	- now imagine scenarios and required action, doing this will help you think few more objects which you can keep adding.
+	- e.g. party walks in restaurant and requests a table, if it is free it is assigned else it is added to waitlist, once free assigned and later on table resource is released.
+
+5. Use any of the following design patterns.
+	1. Singleton Class.
+		lets say we want to design where there is instance of only one restaurant.
+	
+	public class Restaurant {
+		private static Restaurant _instance = null ;  //intialized to null, it should be private static
+		
+		protected Restaurant() {}; // initialization of restaurant can be handled in this one.
+		
+		public static Restaurant getInstance() {
+			if( _instance == null) {
+				_instance = new Restaurant();
+			}
+			
+			return _instance ;
+		}
+	}
+	
+	2. Factory Method.
+	public class CardGame {
+		public static cardGame(GameType game) {
+			if(type == GameType.poker){
+				return new PokerGame();
+			}
+			if(type == GameType.Uno) {
+				return GameType.uno;
+			}		
+		}
+	}
+		
+		
+Deck of Cards :- 
+http://www.mathcs.emory.edu/~cheung/Courses/170/Syllabus/10/deck-of-cards.html
+very interesting read for shuffle and deal methods and initialization !
+
+--------------------
+deck of cards
+
+1. cardGame which will implement factory pattern to return deckOfCards based on input provided
+
+2. deckOfCards class
+
+3. Card class
+	id and value
+	
+	deck of cards -> cards passed from main
+	
+	
+	class Card {
+		
+		private int id=0;
+		private int val=0;
+		private Strin action="";
+		
+		public Card(id,val,action){
+			this.id= etc.
+		}
+	}
+	
+	class DeckOfCards extends Card{
+	
+		List<Card> deck = new ArrayList<>();
+		
+		public static DeckOfCards(List<Card> cards){
+			for(Card curr : cards) {
+				Card card = new Card(id,value);
+				deck.add(card);
+			}
+		}
+		
+		//shuffle method
+		public void shuffle() {
+			int sizeOfDeck = deck.size();
+			for(int i=0; i<deck.size(); i++) {
+				int rand = (int)Math.random()*(size+1);
+				int temp = deck.get(rand);
+				deck.set(rand,deck.get(i));
+				deck.set(i,temp);
+			}
+		}
+		
+		public Card fetch() {
+			Card card = deck.get(0);
+			deck.remove(0);
+			return card;
+		}
+		
+		public void cut () {
+			int rand = (int)Math.random()*(deck.size() +1);
+			
+		}
+	}
+---------------------------------------
+Hierarchical employees 
+
+abstract class employee {
+	id,
+	name,
+	rank
+	employee (id, name)
+	 id=id;
+	 name= name;
+	 
+	handleCall(int id, int rank) {
+		update q set (rank, id ) false
+		}
+}
+
+Abstract as there is no reason to implement it directly.
+ extend all 3 levels
+
+queue availability
+
+main  
+-----------------------------------------
+Amazon locker system
+
+enum Types {small, medium, large}
+
+class Locker {
+
+}
+
+class LockerManager {
+	id,
+	address
+	hashmap < id, locker> 
+	getInstance ( returns Manager Instance, using this you can call other methods)
+	getEmptyLocker
+	getEmptyLockerBytype
+	emptyLocker
+	fillLocker(id) -> send notification
+	}
+	
+class AmazonLocker {
+		getLocations {
+			k nearest
+		}
+		
+		setLocations {
+			deliver(id);
+		}
+		
+		LockerManager lockerManager = new LockerManager();
+		lockerManager.methods ();
+		
+	}
+}
+-----------------------------------------
+Parking
+
+class Parking
+
+
+class ParkingManager {
+	HashMap <id, <level, row, col>>
+	
+	
+}
+
+class Visitor {
+
+}
+
+-------------------------------------------
+Design Twitter
+
+
+
+torrent :-
+central server 
+part download, u can start uploading  this goes on and on. 
+- central server ( obj ) for a sepcific file ( new class ) - url ,details, size, quality. 
+- queue define users who have downloaded part of file -> hashmap parts of file in each value queue of users who have already downloaded. 
+- another queue who are downloading file. 
+- hashmap will redirect to user. , tilll downloading he can host.
+- part1, part 2 , part 1000 . after when he closes queue.  cancels sare queue se ud jayega. 
+--------------- 
+graduate school :- 
+- architecture ( buildings ) size , capacity , no of rooms. floor no and stuff like that. occupied or not. 
+ - user
+- student ( graduate, under ) -> stream 
+- employee ( faculty , TA , librarian, staff memners )  ( leaves, attendance , grading )  
+- teacher ->  hod class 
+- librarian -> functions. 
+- scheduler ( exam ) 
+------------------
+Physician scheduler :- 
+calendar sunday , saturday ( availability )
+fun - schedule appointment , ( urself , on call, receptionist)
+by john or behalf of john. 
+logging a system ( guest user , recurring user )
+- history of user profile. ( problem, solution)
+- status of appointment.
+- notification regarding appointment, 
+- confirmation if cancelled. 
+- emergency situation ??   
+------------------ 
+
+
+
+

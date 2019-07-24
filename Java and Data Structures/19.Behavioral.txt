@@ -1,0 +1,72 @@
+complete behavioral
+
+- Situations
+ 12th IIT JEE , state level undergrad.
+ started working and today I am giving interview of Amazon
+
+ Atos -
+	innovative situation, 
+	I keep trying to improve things
+	Migrunner for automation
+	Mumbai circle migration - lead, subordinates were not working. 
+ RDH	
+	Excel script for spitting out files. data anomalies
+ American Traffic Solutions
+	Azure problem - staging and prod not working, 
+	rules of accepting the queue were not proper
+	input rules of queue were not proper. 
+ Equality health 
+	keep adding unit tests.
+	- standup we discuss problems
+	- internal or external user based on domain (), 
+	
+	he needed to do that on the basis of registration, 
+	so I told him that he can use the latest method developed by me instead of creating a new one.
+	
+
+	- what do you bring to team
+	   - passion for continuous improvement
+	   - proactive nature ( stand up example)
+	   - social nature. 
+
+ - where you helped someone. 
+	- jquery and servlet calls , how the form gets submitted
+	- taught him the structure
+	- taught him ajax requests. Harsh...
+
+ - where u came up with a creative solution.
+	Migrunner 
+	Excel sheet in RDH. 
+ 
+ - user communication -> users on site, iPhone app in rdh
+	
+ 
+ - were not able to finish and what did you handle it, what did you learn from it.
+	- inadequate system knowledge, and improper planning of the unknown module
+	- jQuery , I needed to learn it first , front aesthetics take more time than expected
+	- select 2 operations
+ 
+ - different solutions. how did you convince you were right/ conflict situations
+		Migrunner - small circle ... 
+		splitting of architecture. based on threads
+	
+ 
+ - you were in charge, someone was not doing there share of work, how did you handle.
+ - one thing that you brought to the table, innovative solution you brought
+	every time they expect an example.
+	
+	rdh , create videos and explain the issue
+	create test cases
+	scheduler 
+	set get tasks
+	weekly , bi weekly, twice monthly
+	reschedule logic , limits ...
+	
+	intake file, reporting, web application, admin application
+	admin approving and create user.
+	
+	web provider point of view.
+	
+	
+	
+	
